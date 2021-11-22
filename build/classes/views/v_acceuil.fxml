@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.V_connexionController">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="184.0" style="-fx-background-color: #5DCD93;" BorderPane.alignment="CENTER">
+         <children>
+            <Text layoutX="27.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clinique 221" wrappingWidth="130.6640625">
+               <font>
+                  <Font name="Bell MT" size="24.0" />
+               </font>
+            </Text>
+            <Button fx:id="buttonCreation" layoutX="41.0" layoutY="236.0" mnemonicParsing="false" onMouseClicked="#showAccountCreationPage" style="-fx-background-color: #ffffff;" text="Creer un compte" />
+            <Button fx:id="buttonConnexion" layoutX="56.0" layoutY="236.0" mnemonicParsing="false" onMouseClicked="#showConnexionPage" style="-fx-background-color: #ffffff;" text="Connexion" />
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane fx:id="anchorConnexionContent" prefHeight="390.0" prefWidth="398.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/Acceuil_secretaireController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/V_connexionController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/V_prestation_patientController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/services/IService.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/dao/RdvDao.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/dao/SpecialiteDao.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/dao/UserDao.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/V_mainController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/ConnexionPageController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/V_acceuilPatientController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/V_accountCreationController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/V_consultation_patientController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/views/V_rdvController.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/services/Service.java</file>
+            <file>file:/C:/Users/user/Desktop/Projet%20Java%20A%20Rendre/Gestion%20Clinique/src/dto/RdvDto.java</file>
+        </group>
+    </open-files>
+</project-private>
