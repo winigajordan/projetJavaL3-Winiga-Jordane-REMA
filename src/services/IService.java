@@ -9,6 +9,7 @@ import dto.ConsultationDto;
 import dto.PrestationDto;
 import dto.RdvDto;
 import entities.Consultation;
+import entities.Medecin;
 import entities.Prestation;
 import entities.Rdv;
 import entities.Specialite;
@@ -42,6 +43,8 @@ public interface IService {
      public List<RdvDto> showPrestationsToSecretaire();
      public int updateRdv (int rdv_id);
      public int createPrestation(Prestation prestation);
+     public List <Medecin> showMedecin(String specialite);
+     public int createConsultation(Consultation consultation);
      
      
      

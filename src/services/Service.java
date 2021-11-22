@@ -6,6 +6,7 @@
 package services;
 
 import dao.ConsultationDao;
+import dao.MedecinDao;
 import dao.PatientDao;
 import dao.PrestationDao;
 import dao.RdvDao;
@@ -16,12 +17,14 @@ import dto.ConsultationDto;
 import dto.PrestationDto;
 import dto.RdvDto;
 import entities.Consultation;
+import entities.Medecin;
 import entities.Patient;
 import entities.Prestation;
 import entities.Rdv;
 import entities.Specialite;
 import entities.TypePrestation;
 import entities.User;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,6 +42,7 @@ public class Service implements IService{
     RdvDao rdvDao = new RdvDao();
     PrestationDao prestationDao = new PrestationDao();
     ConsultationDao consultationDao = new ConsultationDao();
+    MedecinDao medecinDao = new MedecinDao(); 
 
     @Override
     public User login(String login, String password) {
@@ -129,6 +133,32 @@ public class Service implements IService{
     @Override
     public int createPrestation(Prestation prestation) {
         return prestationDao.insert(prestation);
+    }
+
+    @Override
+    public List<Medecin> showMedecin(String specialite) {
+        List <Medecin> med = new ArrayList();
+        List <Medecin> medecins = medecinDao.findAll();
+        List <Specialite> specialites = showAllSpecialisation();
+        for (Specialite s:specialites)
+        {
+            if(s.getLibelle().equals(specialite))
+            {
+                for (Medecin m : medecins){
+                    if (m.getSpecialite_id()==s.getId())
+                    {
+                        med.add(m);
+                    }
+                    
+                }
+            }
+        }
+        return med;
+    }
+
+    @Override
+    public int createConsultation(Consultation consultation) {
+        return consultationDao.insert(consultation);
     }
        
 }

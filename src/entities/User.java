@@ -14,10 +14,10 @@ public class User {
     protected int id;
      protected int nci;
     protected String nomComplet;
-   
     protected String login;
     protected String password;
     protected String role;
+    
     //protected String antecedants;
 
     public User() {

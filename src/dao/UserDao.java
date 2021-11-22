@@ -16,40 +16,16 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class UserDao implements IDao{
+public class UserDao implements IDao <User>{
     
     private final String SQL_LOGIN = "SELECT * FROM user WHERE login = ? AND password = ?";
     private final String SQL_SEARCH_BY_NCI = "SELECT * FROM user WHERE nci = ?";
+    private final String SQL_FIND_ALL_USER = "SELECT * FROM user";
    
     
     private final DataBase database= new DataBase();
     
-    @Override
-    public int insert(Object ogj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int update(Object ogj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public User findUserLoginAndPassword(String login,String password){
+   public User findUserLoginAndPassword(String login,String password){
         User user = null;
         database.openConnexion();
         database.initPrepareStatement(SQL_LOGIN);
@@ -106,6 +82,31 @@ public class UserDao implements IDao{
     
     public User createAccount (String u) {
     return null;
+    }
+
+    @Override
+    public int insert(User ogj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int update(User ogj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<User> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public User findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
   
 }

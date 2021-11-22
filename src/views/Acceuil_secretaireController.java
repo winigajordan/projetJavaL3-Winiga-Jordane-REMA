@@ -6,7 +6,10 @@
 package views;
 
 import dto.RdvDto;
+import entities.Consultation;
+import entities.Medecin;
 import entities.Prestation;
+import entities.Specialite;
 import entities.TypePrestation;
 import java.net.URL;
 import java.util.Date;
@@ -35,6 +38,7 @@ import services.Service;
 public class Acceuil_secretaireController implements Initializable {
 
     Service service = new Service();
+    private ObservableList<Medecin> obm;
     
     //Textes
     @FXML
@@ -81,9 +85,11 @@ public class Acceuil_secretaireController implements Initializable {
     @FXML
     private Button btnPrestation;
     @FXML
-    private ComboBox<?> cboMedecin;
+    private ComboBox<Medecin> cboMedecin;
     @FXML
     private Button btnConsultation;
+    
+  
     
     /**
      * Initializes the controller class.
@@ -147,6 +153,9 @@ public class Acceuil_secretaireController implements Initializable {
         FormNciPatient.setText(String.valueOf(rdv.getNciPatient()));
         FormServiceDemande.setText(String.valueOf(rdv.getTypeServiceDemande()));
         formDate.setText(String.valueOf(rdv.getDate()));
+        
+        laodComboBoxSpecialiste(rdv.getTypeServiceDemande());
+            
         } 
         catch(Exception ex){
             showAlert("Veuillez selectionner un RDV");
@@ -196,20 +205,19 @@ public class Acceuil_secretaireController implements Initializable {
         //Creation de la prestation
         Date date = rdv.getDate();
         int nciPatient = rdv.getNciPatient();
-        int specialiteId = 0;
+        int typeId = 0;
         List<TypePrestation> prestations = service.showAllType();
-        
-        
+   
         for(TypePrestation p : prestations){
             
             if(p.getLibelle().equals(rdv.getTypeServiceDemande()))
             {
-                specialiteId = p.getId();
+                typeId = p.getId();
             }
         }
         
         Prestation p = new Prestation(
-                (java.sql.Date) date,"En cours", "--" , nciPatient,specialiteId 
+                (java.sql.Date) date,"En cours", "--" , nciPatient,typeId 
         );
         
         int idPrestation = service.createPrestation(p);
@@ -220,15 +228,57 @@ public class Acceuil_secretaireController implements Initializable {
         {
         showAlert("Veuillez selectionner un RDV");
         }
-        
-        
-        
         laodTableViewPrestation();
     }
     
     
 
+    private void laodComboBoxSpecialiste(String specialite)
+    {
+     obm = FXCollections.observableArrayList(service.showMedecin(specialite));
+     cboMedecin.setItems(obm);
+    }
+    
     @FXML
     private void handleAskConsultation(MouseEvent event) {
+        RdvDto rdv = tblvRdv.getSelectionModel().getSelectedItem();
+        
+        if (rdv!= null)
+        {
+            
+            java.sql.Date date = rdv.getDate();
+            int specialiteId = 0;
+            int patientNci = rdv.getNciPatient();
+            int medecinNci = cboMedecin.getSelectionModel().getSelectedItem().getNci();
+            
+            List<Specialite> specialites = service.showAllSpecialisation();   
+            for(Specialite s : specialites){
+
+                if(s.getLibelle().equals(rdv.getTypeServiceDemande()))
+                {
+                    specialiteId = s.getId();
+                }
+            }
+
+            Consultation consultation  = new Consultation(
+                    date, specialiteId, medecinNci, patientNci
+            );
+
+            int idConsultation = service.createConsultation(consultation);
+            showAlert("Consultation id : "+ idConsultation);
+    
+        }
+        else
+        {
+            showAlert("Veuillez selectionner un RDV");
+        }
+        
+        
+        
+     
+        
     }
+    
+    
+    
 }
