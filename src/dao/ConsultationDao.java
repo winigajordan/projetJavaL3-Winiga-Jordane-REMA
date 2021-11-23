@@ -22,8 +22,8 @@ public class ConsultationDao implements IDao <Consultation>{
     
     DataBase database = new DataBase();
     private final String SQL_SELECT_BY_NCI_PATIENT ="SELECT c.id, c.date, s.libelle_specialite, c.statut FROM consultation as c, specialite as s where s.id=c.specialite_id and c.patient_nci = ?";
-    private final String SQL_INSERT = "INSERT INTO consultation (statut,date,specialite_id,medecin_nci,patient_nci) VALUES (?,?,?,?,?)";
-
+    private final String SQL_INSERT = "INSERT INTO consultation (statut,date,specialite_id,medecin_nci,patient_nci,consultation_rdv_id) VALUES (?,?,?,?,?,?)";
+    private final String SQL_FIND_ALL = "SELECT * FROM consultation";
 
     
     public List <ConsultationDto> findByNci(int nci_patient) 
@@ -65,6 +65,7 @@ public class ConsultationDao implements IDao <Consultation>{
            database.getPs().setInt(3, consultation.getSpecialiteId() );
            database.getPs().setInt(4, consultation.getMedecinNci() );
            database.getPs().setInt(5, consultation.getPatientNci());
+           database.getPs().setInt(6, consultation.getRdvId());
            
            
            database.executeUpdate(SQL_INSERT);
@@ -94,7 +95,31 @@ public class ConsultationDao implements IDao <Consultation>{
 
     @Override
     public List<Consultation> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List <Consultation> consultations = new ArrayList();
+        database.openConnexion();
+        database.initPrepareStatement(SQL_FIND_ALL);
+        ResultSet rs = database.executeSelect(SQL_INSERT);
+        
+       try {
+           while(rs.next())
+           {
+               Consultation c = new Consultation (
+               rs.getDate("date"),
+               rs.getInt("specialite_id"),
+               rs.getInt("medecin_nci"),
+               rs.getInt("patient_nci"),
+               rs.getInt("consultation_rdv_id")
+               );
+               
+               consultations.add(c);
+           }
+               
+               database.closeConnexion();
+       } catch (SQLException ex) {
+           Logger.getLogger(PrestationDao.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        
+        return consultations;
     }
 
     @Override

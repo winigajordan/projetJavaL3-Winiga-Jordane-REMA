@@ -22,13 +22,23 @@ public class Consultation {
     private int ordonnanceId;
     private int prestationId;
     private String constantes;
+    private int rdvId;
 
-    public Consultation(Date date, int specialiteId, int medecinNci, int patientNci) {
+    public Consultation(Date date, int specialiteId, int medecinNci, int patientNci, int rdvId) {
         this.statut = "En Cours";
         this.date = date;
         this.specialiteId = specialiteId;
         this.medecinNci = medecinNci;
         this.patientNci = patientNci;
+        this.rdvId = rdvId;
+    }
+
+    public int getRdvId() {
+        return rdvId;
+    }
+
+    public void setRdvId(int rdvId) {
+        this.rdvId = rdvId;
     }
 
     

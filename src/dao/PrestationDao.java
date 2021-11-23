@@ -24,8 +24,8 @@ public class PrestationDao implements IDao <Prestation>{
    DataBase dataBase = new DataBase();
    //private final String  SQL_FIND_PRESTATION_BY_ID = "select * from prestation where id = ?";
    private final String SQL_FIND_BY_NCI = "select p.date, t.libelle_type_prestation, p.statut, p.resultat from prestation as p, type_prestation as t where p.type_prestation_id = t.id AND p.patient_nci= ? ";
-   private final String SQL_INSERT = "INSERT INTO prestation (date, statut, resultat, patient_nci, type_prestation_id) VALUES (?,?,?,?,?)";
-       
+   private final String SQL_INSERT = "INSERT INTO prestation (date, statut, resultat, patient_nci, type_prestation_id, prestation_rdv_id) VALUES (?,?,?,?,?,?)";
+   private final String SQL_FIND_ALL = "SELECT * FROM prestation";    
    
 
     @Override
@@ -40,7 +40,7 @@ public class PrestationDao implements IDao <Prestation>{
            dataBase.getPs().setString(3 , prestation.getResultat());
            dataBase.getPs().setInt(4 , prestation.getNciPatient());
            dataBase.getPs().setInt(5 , prestation.getTypePrestationId());
-           
+           dataBase.getPs().setInt(6, prestation.getRdvId());
            dataBase.executeUpdate(SQL_INSERT);
            ResultSet rs = dataBase.getPs().getGeneratedKeys();
            while(rs.next())
@@ -69,7 +69,32 @@ public class PrestationDao implements IDao <Prestation>{
 
     @Override
     public List<Prestation> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List <Prestation> prestations = new ArrayList();
+        dataBase.openConnexion();
+        dataBase.initPrepareStatement(SQL_FIND_ALL);
+        ResultSet rs = dataBase.executeSelect(SQL_INSERT);
+        
+       try {
+           while(rs.next())
+           {
+               Prestation p = new Prestation (
+               rs.getDate("date"),
+               rs.getString("statut"),
+                       rs.getString("resultat"),
+                       rs.getInt("patient_nci"),
+                       rs.getInt("type_prestation_id"),
+                       rs.getInt("prestation_rdv_id")
+               );
+               
+               prestations.add(p);
+           }
+               
+               dataBase.closeConnexion();
+       } catch (SQLException ex) {
+           Logger.getLogger(PrestationDao.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        
+        return prestations;
     }
 
     @Override

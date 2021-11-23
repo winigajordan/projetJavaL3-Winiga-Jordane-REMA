@@ -39,7 +39,7 @@ public class RdvDao implements IDao <Rdv> {
         int idGenere = 0;
         
          try {
-             //System.out.println(rdv.getPatientNci());
+             
              dataBase.openConnexion();
              dataBase.initPrepareStatement(SQL_INSERT);
              dataBase.getPs().setDate(1, rdv.getDate());
@@ -81,7 +81,7 @@ public class RdvDao implements IDao <Rdv> {
     }
     
     public List<Rdv> findAllRdv(int patient_nci) {
-        //System.out.println(patient_nci);
+        
          dataBase.openConnexion();
          List<Rdv> rdvs = new ArrayList();
          dataBase.initPrepareStatement(SQL_FIND_ALL_BY_NCI);
@@ -108,12 +108,7 @@ public class RdvDao implements IDao <Rdv> {
             Logger.getLogger(RdvDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        /*
-        rdvs.forEach((rdv) -> {
-            System.out.println(rdv.getDate().toString()+ " " + rdv.getEtat()+ " " + rdv.getPatientNci() + " " + rdv.getPrestationId()+ " // " + rdv.getSpecialiteId());
-            //System.out.println(rdv.getDate());
-        });
-        */
+       
          dataBase.closeConnexion();
          return rdvs;
     }
@@ -133,7 +128,7 @@ public class RdvDao implements IDao <Rdv> {
         try {
             while (rs.next())
             {
-                //System.out.println(rs.getString("libelle_specialite"));
+                
                RdvDto rdv = new RdvDto  (
                        rs.getInt("id"),
                        rs.getDate("date"),
@@ -166,7 +161,7 @@ public class RdvDao implements IDao <Rdv> {
         try {
             while (rs.next())
             {
-                System.out.println(rs.getString("libelle_type_prestation"));
+                
                RdvDto rdv = new RdvDto  (
                        rs.getInt("id"),
                        rs.getDate("date"),
@@ -177,7 +172,7 @@ public class RdvDao implements IDao <Rdv> {
                rdvs.add(rdv);
                
             }
-            //System.out.println(rdvs);
+            
         } catch (SQLException ex) {
             Logger.getLogger(RdvDao.class.getName()).log(Level.SEVERE, null, ex);
         }

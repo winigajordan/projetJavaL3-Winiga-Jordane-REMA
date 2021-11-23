@@ -190,54 +190,61 @@ public class Acceuil_secretaireController implements Initializable {
         alert.show();
     }
     
+    
+    
     @FXML
     private void handleAskPrestation(MouseEvent event) {
         
        RdvDto rdv = tblvRdvPrestation.getSelectionModel().getSelectedItem();
 
-        if (rdv!= null){
-        
-        //Changement de l'état du Rdv dans la base de donnée
-        service.updateRdv(rdv.getId());
-        showAlert("Prestation validé");
-        
-        
-        //Creation de la prestation
-        Date date = rdv.getDate();
-        int nciPatient = rdv.getNciPatient();
-        int typeId = 0;
-        List<TypePrestation> prestations = service.showAllType();
-   
-        for(TypePrestation p : prestations){
-            
-            if(p.getLibelle().equals(rdv.getTypeServiceDemande()))
+        if (rdv!= null)
+        {
+            if(service.checkRdvInPrestation(rdv.getId()))
             {
-                typeId = p.getId();
+                showAlert("Ce Rdv a déjà été validé ");
             }
+            else
+            {
+            
+                //Creation de la prestation
+                Date date = rdv.getDate();
+                int nciPatient = rdv.getNciPatient();
+                int typeId = 0;
+                int rdvId = rdv.getId();
+                List<TypePrestation> prestations = service.showAllType();
+
+                for(TypePrestation p : prestations){
+
+                    if(p.getLibelle().equals(rdv.getTypeServiceDemande()))
+                    {
+                        typeId = p.getId();
+                    }
+                }
+
+                Prestation p = new Prestation(
+                        (java.sql.Date) date,"En cours", "--" , nciPatient,typeId,rdvId  
+                );
+
+                int idPrestation = service.createPrestation(p);
+                showAlert("Prestation id : "+ idPrestation);
+                
+                //Changement de l'état du Rdv dans la base de donnée
+                service.updateRdv(rdv.getId());    
+                
+                //Mise à jours de la tableView
+                laodTableViewPrestation();
+            }        
         }
         
-        Prestation p = new Prestation(
-                (java.sql.Date) date,"En cours", "--" , nciPatient,typeId 
-        );
-        
-        int idPrestation = service.createPrestation(p);
-        showAlert("Prestation id : "+ idPrestation);
-        
-        }
         else
         {
         showAlert("Veuillez selectionner un RDV");
         }
-        laodTableViewPrestation();
     }
     
     
 
-    private void laodComboBoxSpecialiste(String specialite)
-    {
-     obm = FXCollections.observableArrayList(service.showMedecin(specialite));
-     cboMedecin.setItems(obm);
-    }
+    
     
     @FXML
     private void handleAskConsultation(MouseEvent event) {
@@ -249,36 +256,56 @@ public class Acceuil_secretaireController implements Initializable {
             java.sql.Date date = rdv.getDate();
             int specialiteId = 0;
             int patientNci = rdv.getNciPatient();
-            int medecinNci = cboMedecin.getSelectionModel().getSelectedItem().getNci();
+            int medecinNci = 0;
+            int rdvId = rdv.getId();
             
-            List<Specialite> specialites = service.showAllSpecialisation();   
-            for(Specialite s : specialites){
-
-                if(s.getLibelle().equals(rdv.getTypeServiceDemande()))
+            if (cboMedecin.getSelectionModel().getSelectedItem()!=null)
+            {
+                if(service.checkRdvInConsultation(rdv.getId()))
                 {
-                    specialiteId = s.getId();
+                    showAlert("Ce Rdv a déjà été validé ");
                 }
+                else
+                {
+                    medecinNci = cboMedecin.getSelectionModel().getSelectedItem().getNci();
+                    List<Specialite> specialites = service.showAllSpecialisation();   
+                    for(Specialite s : specialites)
+                    {
+
+                        if(s.getLibelle().equals(rdv.getTypeServiceDemande()))
+                       {
+                            specialiteId = s.getId();
+                        }
+                    }
+
+                    Consultation consultation  = new Consultation
+                    (
+                    date, specialiteId, medecinNci, patientNci, rdvId
+                    );
+
+                    int idConsultation = service.createConsultation(consultation);
+                    showAlert("Consultation id : "+ idConsultation);
+                }
+                
+            }
+        
+            else
+            {
+                showAlert("Veuillez choisir un spécialiste");
             }
 
-            Consultation consultation  = new Consultation(
-                    date, specialiteId, medecinNci, patientNci
-            );
-
-            int idConsultation = service.createConsultation(consultation);
-            showAlert("Consultation id : "+ idConsultation);
-    
         }
+        
         else
         {
             showAlert("Veuillez selectionner un RDV");
-        }
-        
-        
-        
-     
-        
+        }   
+    } 
+    
+    
+    private void laodComboBoxSpecialiste(String specialite)
+    {
+     obm = FXCollections.observableArrayList(service.showMedecin(specialite));
+     cboMedecin.setItems(obm);
     }
-    
-    
-    
 }

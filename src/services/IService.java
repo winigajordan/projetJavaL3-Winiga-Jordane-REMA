@@ -45,6 +45,8 @@ public interface IService {
      public int createPrestation(Prestation prestation);
      public List <Medecin> showMedecin(String specialite);
      public int createConsultation(Consultation consultation);
+     public boolean checkRdvInPrestation(int id);
+     public boolean checkRdvInConsultation(int id);
      
      
      

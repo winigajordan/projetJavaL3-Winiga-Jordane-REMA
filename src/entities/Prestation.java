@@ -18,13 +18,24 @@ public class Prestation {
     private String resultat;
     private int nciPatient;
     private int typePrestationId;
+    private int rdvId;
 
-    public Prestation(java.sql.Date date, String statut, String resultat, int nciPatient, int typePrestationId) {
+    public Prestation(java.sql.Date date, String statut, String resultat, int nciPatient, int typePrestationId, int rdvId) {
         this.date = date;
         this.statut = statut;
         this.resultat = resultat;
         this.nciPatient = nciPatient;
         this.typePrestationId = typePrestationId;
+        this.rdvId = rdvId;
+        
+    }
+
+    public int getRdvId() {
+        return rdvId;
+    }
+
+    public void setRdvId(int rdvId) {
+        this.rdvId = rdvId;
     }
 
     

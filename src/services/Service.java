@@ -160,5 +160,30 @@ public class Service implements IService{
     public int createConsultation(Consultation consultation) {
         return consultationDao.insert(consultation);
     }
-       
+
+    @Override
+    public boolean checkRdvInPrestation(int id) {
+        List <Prestation> prestations = prestationDao.findAll();
+        boolean statut = false;
+        for(Prestation p : prestations) {
+            if (p.getRdvId() == id)
+            {
+                statut = true;
+            }
+        }
+        return statut;
+    }
+
+    @Override
+    public boolean checkRdvInConsultation(int id) {
+        List <Consultation> consultations = consultationDao.findAll();
+        boolean statut = false;
+        for(Consultation c : consultations) {
+            if (c.getRdvId() == id)
+            {
+                statut = true;
+            }
+        }
+        return statut;
+    }
 }
