@@ -284,7 +284,15 @@ public class Acceuil_secretaireController implements Initializable {
                     );
 
                     int idConsultation = service.createConsultation(consultation);
+                    
+                    //Changement de l'état du Rdv dans la base de donnée
+                    service.updateRdv(rdv.getId());    
+                
+                    //Mise à jours de la tableView
+                    laodTableViewConsultation();
+                    
                     showAlert("Consultation id : "+ idConsultation);
+                    
                 }
                 
             }
