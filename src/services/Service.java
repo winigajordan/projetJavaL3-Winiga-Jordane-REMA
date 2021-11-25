@@ -186,4 +186,9 @@ public class Service implements IService{
         }
         return statut;
     }
+
+    @Override
+    public List<Consultation> showConsultationToMedecin(int medecin_nci) {
+        return consultationDao.findByNciMedecin(medecin_nci);
+    }
 }

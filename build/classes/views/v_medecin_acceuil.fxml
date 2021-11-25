@@ -7,8 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="740.0" prefWidth="901.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="views.MedecinAcceuilController">
+<AnchorPane id="AnchorPane" prefHeight="740.0" prefWidth="901.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MedecinAcceuilController">
    <children>
       <AnchorPane fx:id="anchorContent" layoutX="228.0" layoutY="116.0" prefHeight="620.0" prefWidth="671.0" style="-fx-background-color: #D9DEF6;" />
       <AnchorPane layoutX="4.0" layoutY="116.0" prefHeight="620.0" prefWidth="221.0" style="-fx-background-color: #D9DEF6;">
@@ -42,12 +41,12 @@
                   <Font name="Bell MT" size="18.0" />
                </font>
             </Text>
-            <Text layoutX="394.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NCI : UserNci">
+            <Text fx:id="txtNci" layoutX="394.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NCI : UserNci">
                <font>
                   <Font name="Bell MT" size="18.0" />
                </font>
             </Text>
-            <Text layoutX="383.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom : UserName">
+            <Text fx:id="txtNomComplet" layoutX="383.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom : UserName">
                <font>
                   <Font name="Bell MT" size="18.0" />
                </font>

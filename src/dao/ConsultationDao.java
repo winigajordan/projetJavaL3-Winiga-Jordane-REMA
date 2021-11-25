@@ -24,6 +24,7 @@ public class ConsultationDao implements IDao <Consultation>{
     private final String SQL_SELECT_BY_NCI_PATIENT ="SELECT c.id, c.date, s.libelle_specialite, c.statut FROM consultation as c, specialite as s where s.id=c.specialite_id and c.patient_nci = ?";
     private final String SQL_INSERT = "INSERT INTO consultation (statut,date,specialite_id,medecin_nci,patient_nci,consultation_rdv_id) VALUES (?,?,?,?,?,?)";
     private final String SQL_FIND_ALL = "SELECT * FROM consultation";
+    private final String SQL_SELECT_BY_NCI_MEDECIN = "SELECT * FROM consultation WHERE medecin_nci = ?";
 
     
     public List <ConsultationDto> findByNci(int nci_patient) 
@@ -48,6 +49,39 @@ public class ConsultationDao implements IDao <Consultation>{
         } catch (SQLException ex) {
             Logger.getLogger(ConsultationDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        database.closeConnexion();
+        return consultations;
+    }
+    
+    public List<Consultation> findByNciMedecin(int nci_medecin)
+    {
+        List<Consultation> consultations = new ArrayList();
+        database.openConnexion();
+        database.initPrepareStatement(SQL_SELECT_BY_NCI_MEDECIN);
+        try {
+            database.getPs().setInt(1, nci_medecin);
+            ResultSet rs = database.executeSelect(SQL_SELECT_BY_NCI_MEDECIN);
+            while(rs.next())
+            {
+                Consultation c = new Consultation(
+                rs.getInt("id"), //id
+                        rs.getString("statut"), // statut
+                        rs.getDate("date"), //date
+                        rs.getInt("specialite_id"), //specialiteId
+                        rs.getInt("medecin_nci"), //medecinNci
+                        rs.getInt("patient_nci"), //patientNci
+                        rs.getInt("ordonnance_id"), //ordonnanceId
+                        rs.getInt("prestation_id"), //PrestationId
+                        rs.getInt("constantes_id"), //constanteId
+                        rs.getInt("consultation_rdv_id") //rdvId
+                );
+                consultations.add(c);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultationDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         database.closeConnexion();
         return consultations;
     }
@@ -126,6 +160,8 @@ public class ConsultationDao implements IDao <Consultation>{
     public Consultation findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
     
     
 }

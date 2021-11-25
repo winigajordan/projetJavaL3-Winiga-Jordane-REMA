@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -30,12 +31,18 @@ public class MedecinAcceuilController implements Initializable {
     private AnchorPane anchorContent;
     @FXML
     private Button btnDeconnexion;
+    @FXML
+    private Text txtNci;
+    @FXML
+    private Text txtNomComplet;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        txtNomComplet.setText("Nom : " + String.valueOf(ConnexionPageController.getCtrl().getUser().getNomComplet()));
+        txtNci.setText("NCI : " + String.valueOf(ConnexionPageController.getCtrl().getUser().getNci()));
         try {
             // TODO
             loadView("v_medecin_consultation");

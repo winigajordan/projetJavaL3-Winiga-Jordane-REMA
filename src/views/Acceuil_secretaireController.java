@@ -135,10 +135,7 @@ public class Acceuil_secretaireController implements Initializable {
     
     public void laodTableViewPrestation(){
         List <RdvDto> rdvs = service.showPrestationsToSecretaire();
-        //for(RdvDto rdv : rdvs)
-        //{
-        //    System.out.println("Prestation : "+rdv.getServiceDemande());
-        //    }
+       
        tblcPrestationNci.setCellValueFactory(new PropertyValueFactory<>("nciPatient"));
        tblcPrestationDate.setCellValueFactory(new PropertyValueFactory<>("date"));
        tblcPrestationType.setCellValueFactory(new PropertyValueFactory<>("typeServiceDemande"));

@@ -9,8 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="668.0" style="-fx-background-color: ffffff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="views.MedecinConsultationController">
+<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="668.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MedecinConsultationController">
    <children>
       <AnchorPane prefHeight="268.0" prefWidth="672.0" style="-fx-background-color: #D9DEF6;">
          <children>
@@ -48,7 +47,7 @@
                         <Font name="Bell MT" size="17.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="tktTemperature" layoutX="117.0" layoutY="33.0" prefHeight="25.0" prefWidth="51.0" />
+                  <TextField fx:id="txtTemperature" layoutX="117.0" layoutY="33.0" prefHeight="25.0" prefWidth="51.0" />
                   <TextField fx:id="txtPoids" layoutX="67.0" layoutY="60.0" prefHeight="25.0" prefWidth="41.0" />
                   <TextField fx:id="txtTension" layoutX="85.0" layoutY="97.0" prefHeight="25.0" prefWidth="41.0" />
                   <Text layoutX="171.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="° C">
@@ -105,7 +104,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Button fx:id="btnOrdonnance1" layoutX="500.0" layoutY="226.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Valider la consultation" />
+            <Button fx:id="btnValidation" layoutX="500.0" layoutY="226.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Valider la consultation" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-1.0" layoutY="272.0" prefHeight="348.0" prefWidth="673.0" style="-fx-background-color: #D9DEF6;">
@@ -121,15 +120,15 @@
                </font>
             </Text>
             <ComboBox fx:id="cboListDate" layoutX="255.0" layoutY="42.0" prefWidth="150.0" promptText="Derouller la liste" />
-            <Button layoutX="426.0" layoutY="42.0" mnemonicParsing="false" text="Afficher toutes les consultations" />
-            <TableView layoutX="39.0" layoutY="84.0" prefHeight="200.0" prefWidth="591.0">
+            <Button fx:id="btnAllConsultation" layoutX="426.0" layoutY="42.0" mnemonicParsing="false" text="Afficher toutes les consultations" />
+            <TableView fx:id="tblvConsultations" layoutX="39.0" layoutY="84.0" onMouseClicked="#loadInfos" prefHeight="200.0" prefWidth="591.0">
               <columns>
-                <TableColumn prefWidth="133.0" text="NCI patient" />
-                <TableColumn prefWidth="301.0" text="Date" />
-                  <TableColumn prefWidth="156.0" text="Etat" />
+                <TableColumn fx:id="tblcNciPatient" prefWidth="133.0" text="NCI patient" />
+                <TableColumn fx:id="tblcDate" prefWidth="301.0" text="Date" />
+                  <TableColumn fx:id="tblcEtat" prefWidth="156.0" text="Etat" />
               </columns>
             </TableView>
-            <Button layoutX="252.0" layoutY="301.0" mnemonicParsing="false" text="Annuler cette consultation" />
+            <Button fx:id="btnDelConsultation" layoutX="252.0" layoutY="301.0" mnemonicParsing="false" text="Annuler cette consultation" />
          </children>
       </AnchorPane>
    </children>

@@ -49,6 +49,9 @@ public interface IService {
      public boolean checkRdvInConsultation(int id);
      
      
+     //Medecin
+     public List <Consultation> showConsultationToMedecin(int medecin_nci);
+     
      
      
      

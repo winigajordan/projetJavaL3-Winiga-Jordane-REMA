@@ -21,9 +21,14 @@ public class Consultation {
     private int patientNci;
     private int ordonnanceId;
     private int prestationId;
-    private String constantes;
+    private int constantesId;
     private int rdvId;
 
+    public Consultation() {
+    }
+
+    
+    
     public Consultation(Date date, int specialiteId, int medecinNci, int patientNci, int rdvId) {
         this.statut = "En Cours";
         this.date = date;
@@ -33,6 +38,22 @@ public class Consultation {
         this.rdvId = rdvId;
     }
 
+    public Consultation(int id, String statut, Date date, int specialiteId, int medecinNci, int patientNci, int ordonnanceId, int prestationId, int constantesId, int rdvId) {
+        this.id = id;
+        this.statut = statut;
+        this.date = date;
+        this.specialiteId = specialiteId;
+        this.medecinNci = medecinNci;
+        this.patientNci = patientNci;
+        this.ordonnanceId = ordonnanceId;
+        this.prestationId = prestationId;
+        this.constantesId = constantesId;
+        this.rdvId = rdvId;
+    }
+    
+    
+
+   
     public int getRdvId() {
         return rdvId;
     }
@@ -107,13 +128,14 @@ public class Consultation {
         this.prestationId = prestationId;
     }
 
-    public String getConstantes() {
-        return constantes;
+    public int getConstantesId() {
+        return constantesId;
     }
 
-    public void setConstantes(String constantes) {
-        this.constantes = constantes;
+    public void setConstantesId(int constantesId) {
+        this.constantesId = constantesId;
     }
+
     
     
     
