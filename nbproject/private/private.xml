@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/Gestion%20Clinique/src/services/Service.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/Gestion%20Clinique/src/dao/ConsultationDao.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/Gestion%20Clinique/src/services/IService.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/Gestion%20Clinique/src/views/Acceuil_secretaireController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/Gestion%20Clinique/src/dao/PrestationDao.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/Gestion%20Clinique/src/entities/Consultation.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/ConnexionPageController.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Produit.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Prestation.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/Acceuil_secretaireController.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Secretaire.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/V_acceuilPatientController.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/Main/GestionClinique.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/dao/DataBase.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/dao/SecretaireDao.java</file>
         </group>
     </open-files>
 </project-private>

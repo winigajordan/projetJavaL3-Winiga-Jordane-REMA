@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="668.0" style="-fx-background-color: ffffff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="views.MedecinConsultationController">
+   <children>
+      <AnchorPane prefHeight="268.0" prefWidth="672.0" style="-fx-background-color: #D9DEF6;">
+         <children>
+            <TextField fx:id="dateConsultation" editable="false" layoutX="90.0" layoutY="35.0" />
+            <Text layoutX="39.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="344.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NCI Patient">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <TextField fx:id="nciPatient" editable="false" layoutX="446.0" layoutY="35.0" />
+            <AnchorPane layoutX="4.0" layoutY="78.0" prefHeight="135.0" prefWidth="224.0" style="-fx-border-color: #ffffff;">
+               <children>
+                  <Text layoutX="64.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Constantes">
+                     <font>
+                        <Font name="Bell MT" size="20.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="14.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Température : ">
+                     <font>
+                        <Font name="Bell MT" size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="14.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poids : ">
+                     <font>
+                        <Font name="Bell MT" size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="14.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tension : ">
+                     <font>
+                        <Font name="Bell MT" size="17.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="tktTemperature" layoutX="117.0" layoutY="33.0" prefHeight="25.0" prefWidth="51.0" />
+                  <TextField fx:id="txtPoids" layoutX="67.0" layoutY="60.0" prefHeight="25.0" prefWidth="41.0" />
+                  <TextField fx:id="txtTension" layoutX="85.0" layoutY="97.0" prefHeight="25.0" prefWidth="41.0" />
+                  <Text layoutX="171.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="° C">
+                     <font>
+                        <Font name="Bell MT" size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="115.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kg">
+                     <font>
+                        <Font name="Bell MT" size="17.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="132.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="cmHg">
+                     <font>
+                        <Font name="Bell MT" size="17.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <Text layoutX="208.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Formulaire de consultation">
+               <font>
+                  <Font name="Bell MT" size="22.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="269.0" layoutY="78.0" prefHeight="135.0" prefWidth="380.0" style="-fx-border-color: #ffffff;">
+               <children>
+                  <Text layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prescription">
+                     <font>
+                        <Font name="Bell MT" size="20.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="btnOrdonnance" layoutX="17.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#handleOrdonnance" text="Ordonnance" />
+                  <Button fx:id="btnPrestation" layoutX="23.0" layoutY="41.0" mnemonicParsing="false" onMouseClicked="#handlePrestation" text="Prestation" />
+                  <TextField fx:id="datePrestation" layoutX="206.0" layoutY="34.0" prefHeight="25.0" prefWidth="160.0" text="Format : Année-Mois-Jours" />
+                  <Text fx:id="lblTexteDate" layoutX="157.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date : ">
+                     <font>
+                        <Font name="Bell MT" size="17.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="lblType" layoutX="155.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type : ">
+                     <font>
+                        <Font name="Bell MT" size="17.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="cboTypePrestation" layoutX="211.0" layoutY="75.0" prefWidth="150.0" promptText="Type de prestation" />
+                  <ComboBox fx:id="cboMedicaments" layoutX="125.0" layoutY="13.0" prefHeight="25.0" prefWidth="166.0" promptText="Liste des medicaments" />
+                  <Button fx:id="btnAddProduct" layoutX="305.0" layoutY="13.0" mnemonicParsing="false" text="Prescrire" />
+                  <TableView fx:id="tblvMedicaments" layoutX="125.0" layoutY="46.0" prefHeight="76.0" prefWidth="244.0">
+                    <columns>
+                      <TableColumn fx:id="tblcMedCode" prefWidth="55.0" text="Code" />
+                      <TableColumn fx:id="tblcMedNom" prefWidth="95.0" text="Nom" />
+                        <TableColumn fx:id="tblcMedPosologie" prefWidth="93.0" text="Posologie" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <Button fx:id="btnOrdonnance1" layoutX="500.0" layoutY="226.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Valider la consultation" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="-1.0" layoutY="272.0" prefHeight="348.0" prefWidth="673.0" style="-fx-background-color: #D9DEF6;">
+         <children>
+            <Text layoutX="227.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des consultations">
+               <font>
+                  <Font name="Bell MT" size="22.0" />
+               </font>
+            </Text>
+            <Text layoutX="109.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrer par date :">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="cboListDate" layoutX="255.0" layoutY="42.0" prefWidth="150.0" promptText="Derouller la liste" />
+            <Button layoutX="426.0" layoutY="42.0" mnemonicParsing="false" text="Afficher toutes les consultations" />
+            <TableView layoutX="39.0" layoutY="84.0" prefHeight="200.0" prefWidth="591.0">
+              <columns>
+                <TableColumn prefWidth="133.0" text="NCI patient" />
+                <TableColumn prefWidth="301.0" text="Date" />
+                  <TableColumn prefWidth="156.0" text="Etat" />
+              </columns>
+            </TableView>
+            <Button layoutX="252.0" layoutY="301.0" mnemonicParsing="false" text="Annuler cette consultation" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

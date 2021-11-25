@@ -11,14 +11,19 @@ import entities.Medecin;
 import entities.Prestation;
 import entities.Specialite;
 import entities.TypePrestation;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -27,7 +32,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import services.Service;
 
 /**
@@ -39,6 +46,8 @@ public class Acceuil_secretaireController implements Initializable {
 
     Service service = new Service();
     private ObservableList<Medecin> obm;
+    private static Acceuil_secretaireController ctrl;
+    
     
     //Textes
     @FXML
@@ -88,6 +97,8 @@ public class Acceuil_secretaireController implements Initializable {
     private ComboBox<Medecin> cboMedecin;
     @FXML
     private Button btnConsultation;
+    @FXML
+    private Button btnDeconnexion;
     
   
     
@@ -316,4 +327,27 @@ public class Acceuil_secretaireController implements Initializable {
      obm = FXCollections.observableArrayList(service.showMedecin(specialite));
      cboMedecin.setItems(obm);
     }
+
+    @FXML
+    private void handleDisconnection(MouseEvent event) {
+        AnchorPane root;
+        try
+        {
+            Stage stage = (Stage) btnDeconnexion.getScene().getWindow();
+            stage.hide();
+            root = FXMLLoader.load(getClass().getResource("/views/v_main.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage1 =  new Stage();
+            stage1.setScene(scene);
+            stage1.show();
+                    
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+        } 
+    }
+
+  
+    
 }

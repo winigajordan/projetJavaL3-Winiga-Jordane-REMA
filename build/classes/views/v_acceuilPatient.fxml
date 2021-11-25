@@ -16,6 +16,11 @@
                   <Font name="Bell MT Bold" size="43.0" />
                </font>
             </Text>
+            <Text fx:id="txtDeconnexion" layoutX="616.0" layoutY="48.0" onMouseClicked="#logout" strokeType="OUTSIDE" strokeWidth="0.0" text="Deconnexion">
+               <font>
+                  <Font name="Bell MT" size="16.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="5.0" layoutY="89.0" prefHeight="380.0" prefWidth="200.0" style="-fx-background-color: #D9DEF6;">

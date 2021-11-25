@@ -14,12 +14,14 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -44,6 +46,8 @@ public class V_acceuilPatientController implements Initializable {
     public static V_acceuilPatientController getCtrl() {
         return ctrl;
     }
+    @FXML
+    private Text txtDeconnexion;
     
     
 
@@ -87,6 +91,26 @@ public class V_acceuilPatientController implements Initializable {
         root = FXMLLoader.load(getClass().getResource("/views/"+view+".fxml"));
         anchorContent.getChildren().clear();
         anchorContent.getChildren().add(root);
+    }
+
+    @FXML
+    private void logout(MouseEvent event) {
+        AnchorPane root;
+        try
+        {
+            Stage stage = (Stage) txtDeconnexion.getScene().getWindow();
+            stage.hide();
+            root = FXMLLoader.load(getClass().getResource("/views/v_main.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage1 =  new Stage();
+            stage1.setScene(scene);
+            stage1.show();
+                    
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
     
 }
