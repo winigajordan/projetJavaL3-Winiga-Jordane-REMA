@@ -119,8 +119,8 @@
                   <Font name="Bell MT" size="20.0" />
                </font>
             </Text>
-            <ComboBox fx:id="cboListDate" layoutX="255.0" layoutY="42.0" prefWidth="150.0" promptText="Derouller la liste" />
-            <Button fx:id="btnAllConsultation" layoutX="426.0" layoutY="42.0" mnemonicParsing="false" text="Afficher toutes les consultations" />
+            <ComboBox fx:id="cboListDate" layoutX="255.0" layoutY="42.0" onAction="#handleFilterByDate" prefWidth="150.0" promptText="Derouller la liste" />
+            <Button layoutX="426.0" layoutY="42.0" mnemonicParsing="false" onMouseClicked="#handleResetTblvConsultation" text="Afficher toutes les consultations" />
             <TableView fx:id="tblvConsultations" layoutX="39.0" layoutY="84.0" onMouseClicked="#loadInfos" prefHeight="200.0" prefWidth="591.0">
               <columns>
                 <TableColumn fx:id="tblcNciPatient" prefWidth="133.0" text="NCI patient" />
@@ -128,7 +128,7 @@
                   <TableColumn fx:id="tblcEtat" prefWidth="156.0" text="Etat" />
               </columns>
             </TableView>
-            <Button fx:id="btnDelConsultation" layoutX="252.0" layoutY="301.0" mnemonicParsing="false" text="Annuler cette consultation" />
+            <Button fx:id="btnDelConsultation" layoutX="252.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#handleVoidConsultation" text="Annuler cette consultation" />
          </children>
       </AnchorPane>
    </children>

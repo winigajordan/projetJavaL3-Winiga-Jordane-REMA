@@ -51,6 +51,7 @@ public interface IService {
      
      //Medecin
      public List <Consultation> showConsultationToMedecin(int medecin_nci);
+     public int deleteConsultation(int idConsultation);
      
      
      

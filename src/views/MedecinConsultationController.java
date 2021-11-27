@@ -7,17 +7,25 @@ package views;
 
 import dto.RdvDto;
 import entities.Consultation;
+import entities.Prestation;
+import entities.Specialite;
+import entities.TypePrestation;
 import entities.User;
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,7 +44,7 @@ public class MedecinConsultationController implements Initializable {
 
     Service service = new Service();
     //InfoConsultation
-    User user = ConnexionPageController.getCtrl().getUser();
+   
     @FXML
     private TextField dateConsultation;
     @FXML
@@ -55,7 +63,7 @@ public class MedecinConsultationController implements Initializable {
     @FXML
     private TextField datePrestation;
     @FXML
-    private ComboBox<?> cboTypePrestation;
+    private ComboBox<TypePrestation> cboTypePrestation;
     @FXML
     private Text lblTexteDate;
     @FXML
@@ -99,11 +107,14 @@ public class MedecinConsultationController implements Initializable {
     @FXML
     private Button btnValidation;
     @FXML
-    private Button btnAllConsultation;
-    @FXML
     private Button btnDelConsultation;
     
 
+    //autres 
+    private ObservableList<java.sql.Date> obDate; 
+    private ObservableList<TypePrestation> obPrestation;
+    User user = ConnexionPageController.getCtrl().getUser();
+    
     /**
      * Initializes the controller class.
      */
@@ -123,7 +134,11 @@ public class MedecinConsultationController implements Initializable {
         tblvMedicaments.setVisible(true);
         
         //Chargement de la liste des consultation du medecin
-        loddTableView(user.getNci());
+        List <Consultation> consultations = service.showConsultationToMedecin(user.getNci());
+        loddTableView(consultations);
+        
+        //chargement des dates des consultations dans le cbo
+        loadComboBoxDate(user.getNci());
     }    
 
    
@@ -156,13 +171,15 @@ public class MedecinConsultationController implements Initializable {
         cboMedicaments.setVisible(false);
         btnAddProduct.setVisible(false);
         tblvMedicaments.setVisible(false);
+        loadComboBoxPrestation();
     }
     
   
   
-    private void loddTableView(int medecinNci)
+    private void loddTableView(List <Consultation> consultations)
     {
-        List <Consultation> consultations = service.showConsultationToMedecin(medecinNci);
+        
+        //consultations = service.showConsultationToMedecin(user.getNci());
         tblcNciPatient.setCellValueFactory(new PropertyValueFactory<>("patientNci"));
        tblcDate.setCellValueFactory(new PropertyValueFactory<>("date"));
        tblcEtat.setCellValueFactory(new PropertyValueFactory<>("statut"));
@@ -172,16 +189,25 @@ public class MedecinConsultationController implements Initializable {
 
     @FXML
     private void loadInfos(MouseEvent event) {
-        clearField();
-        if(tblvConsultations.getSelectionModel().getSelectedItem()==null)
+        Consultation c = tblvConsultations.getSelectionModel().getSelectedItem();
+        if(c==null)
         {
             showAlert("Veuillez selectionner une consultation");
         }
         else
         {
-            Consultation consultation = tblvConsultations.getSelectionModel().getSelectedItem();
-            dateConsultation.setText(String.valueOf(consultation.getDate()));
-            nciPatient.setText(String.valueOf(consultation.getPatientNci()));
+            dateConsultation.setText(String.valueOf(c.getDate()));
+            nciPatient.setText(String.valueOf(c.getPatientNci()));
+            if (c.getStatut().equals("Annule"))
+            {
+                btnValidation.setVisible(false);
+                
+            }
+            else if (c.getStatut().equals("En cours")){
+                btnValidation.setVisible(true);
+            }
+            
+            
         }    
     }
     
@@ -193,10 +219,93 @@ public class MedecinConsultationController implements Initializable {
         alert.show();
     }
     
-    private void clearField()
-    {
-        txtTemperature.setText("");
-        txtPoids.setText("");
-         txtTension.setText("");
+   
+    @FXML
+    private void handleFilterByDate(ActionEvent event) {
+        //clearField();
+        //System.out.println(cboListDate.getValue());
+        List <Consultation> consultations = service.showConsultationToMedecin(user.getNci());
+        List <Consultation> consul = new ArrayList();
+        for (Consultation c : consultations)
+        {
+            if(cboListDate.getValue().equals(c.getDate()))
+            {
+                consul.add(c);
+                //System.out.println(c.getDate());
+            }
+        }
+        loddTableView(consul);
     }
+    
+    
+    private void loadComboBoxDate(int medecinNci)
+    {
+      List<Date> listeDate = new ArrayList();
+      List<Consultation> consultations = service.showConsultationToMedecin(medecinNci);
+      for (Consultation c:consultations)
+      {
+            if (!listeDate.contains(c.getDate()))
+            {
+                listeDate.add(c.getDate());
+            }
+            
+      }
+      obDate = FXCollections.observableArrayList(listeDate);
+      cboListDate.setItems(obDate);
+    }
+    
+    
+    private void loadComboBoxPrestation()
+    {
+      obPrestation = FXCollections.observableArrayList(service.showAllType());
+       cboTypePrestation.setItems(obPrestation);
+    }
+
+    @FXML
+    private void handleResetTblvConsultation(MouseEvent event) {
+        
+       loddTableView(service.showConsultationToMedecin(user.getNci()));
+      
+    }
+
+    @FXML
+    private void handleVoidConsultation(MouseEvent event) {
+        //System.out.println(); 
+        btnDelConsultation.setVisible(true);
+        Consultation c = tblvConsultations.getSelectionModel().getSelectedItem();
+        if (c.getStatut().equals("Annule"))
+        {
+            showAlert(String.valueOf("Consultation annulée"));
+        }
+        else if (c.getStatut().equals("Fait")){
+            btnDelConsultation.setVisible(false);
+        }
+        else
+        {
+            if (showDiaolg()){
+                service.deleteConsultation(c.getId());
+                showAlert(String.valueOf("Consultation annulée"));
+                loddTableView(service.showConsultationToMedecin(user.getNci()));
+              //showAlert("");
+            }
+        }
+        
+    }
+    
+    private boolean showDiaolg()
+    {
+        boolean confirmation = false;
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation d'annulation");
+        //alert.setHeaderText("");
+        alert.setContentText("Voullez-vous annuler cette consultation ?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            confirmation = true;
+        } 
+        return confirmation;
+    }
+    
+    
+    
 }

@@ -191,4 +191,11 @@ public class Service implements IService{
     public List<Consultation> showConsultationToMedecin(int medecin_nci) {
         return consultationDao.findByNciMedecin(medecin_nci);
     }
+
+    @Override
+    public int deleteConsultation(int idConsultation) {
+        int idModifie = consultationDao.updateStatut(idConsultation);
+        
+        return idModifie;
+    }
 }
