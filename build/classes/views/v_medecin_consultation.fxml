@@ -104,7 +104,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Button fx:id="btnValidation" layoutX="500.0" layoutY="226.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Valider la consultation" />
+            <Button fx:id="btnValidation" layoutX="500.0" layoutY="226.0" mnemonicParsing="false" onMouseClicked="#handleMakeConsultation" prefHeight="25.0" prefWidth="149.0" text="Valider la consultation" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="-1.0" layoutY="272.0" prefHeight="348.0" prefWidth="673.0" style="-fx-background-color: #D9DEF6;">
@@ -114,12 +114,12 @@
                   <Font name="Bell MT" size="22.0" />
                </font>
             </Text>
-            <Text layoutX="109.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrer par date :">
+            <Text layoutX="99.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrer par date :">
                <font>
                   <Font name="Bell MT" size="20.0" />
                </font>
             </Text>
-            <ComboBox fx:id="cboListDate" layoutX="255.0" layoutY="42.0" onAction="#handleFilterByDate" prefWidth="150.0" promptText="Derouller la liste" />
+            <ComboBox fx:id="cboListDate" layoutX="249.0" layoutY="42.0" onAction="#handleFilterByDate" prefHeight="25.0" prefWidth="166.0" promptText="Date des consultations" />
             <Button layoutX="426.0" layoutY="42.0" mnemonicParsing="false" onMouseClicked="#handleResetTblvConsultation" text="Afficher toutes les consultations" />
             <TableView fx:id="tblvConsultations" layoutX="39.0" layoutY="84.0" onMouseClicked="#loadInfos" prefHeight="200.0" prefWidth="591.0">
               <columns>

@@ -5,6 +5,7 @@
  */
 package services;
 
+import dao.ConstantesDao;
 import dao.ConsultationDao;
 import dao.MedecinDao;
 import dao.PatientDao;
@@ -16,6 +17,7 @@ import dao.TypePrestationDao;
 import dto.ConsultationDto;
 import dto.PrestationDto;
 import dto.RdvDto;
+import entities.Constantes;
 import entities.Consultation;
 import entities.Medecin;
 import entities.Patient;
@@ -43,6 +45,7 @@ public class Service implements IService{
     PrestationDao prestationDao = new PrestationDao();
     ConsultationDao consultationDao = new ConsultationDao();
     MedecinDao medecinDao = new MedecinDao(); 
+    ConstantesDao constantesDao = new ConstantesDao();
 
     @Override
     public User login(String login, String password) {
@@ -198,4 +201,16 @@ public class Service implements IService{
         
         return idModifie;
     }
+
+    @Override
+    public int insertConstantes(Constantes c) {
+    return constantesDao.insert(c);
+    }
+
+    @Override
+    public int saveConsultation(int idConsultation) {
+        return consultationDao.updateStatutFait(idConsultation);
+    }
+    
+    
 }

@@ -6,13 +6,16 @@
 package views;
 
 import dto.RdvDto;
+import entities.Constantes;
 import entities.Consultation;
 import entities.Prestation;
+import entities.Rdv;
 import entities.Specialite;
 import entities.TypePrestation;
 import entities.User;
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -189,6 +192,7 @@ public class MedecinConsultationController implements Initializable {
 
     @FXML
     private void loadInfos(MouseEvent event) {
+        btnValidation.setVisible(true);
         Consultation c = tblvConsultations.getSelectionModel().getSelectedItem();
         if(c==null)
         {
@@ -201,13 +205,10 @@ public class MedecinConsultationController implements Initializable {
             if (c.getStatut().equals("Annule"))
             {
                 btnValidation.setVisible(false);
-                
             }
-            else if (c.getStatut().equals("En cours")){
-                btnValidation.setVisible(true);
+            else if (c.getStatut().equals("Fait")){
+                btnValidation.setVisible(false);
             }
-            
-            
         }    
     }
     
@@ -215,6 +216,7 @@ public class MedecinConsultationController implements Initializable {
     public void showAlert( String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Consultation");
+        alert.setHeaderText("");
         alert.setContentText(message);
         alert.show();
     }
@@ -231,7 +233,7 @@ public class MedecinConsultationController implements Initializable {
             if(cboListDate.getValue().equals(c.getDate()))
             {
                 consul.add(c);
-                //System.out.println(c.getDate());
+                
             }
         }
         loddTableView(consul);
@@ -248,7 +250,6 @@ public class MedecinConsultationController implements Initializable {
             {
                 listeDate.add(c.getDate());
             }
-            
       }
       obDate = FXCollections.observableArrayList(listeDate);
       cboListDate.setItems(obDate);
@@ -263,14 +264,12 @@ public class MedecinConsultationController implements Initializable {
 
     @FXML
     private void handleResetTblvConsultation(MouseEvent event) {
-        
        loddTableView(service.showConsultationToMedecin(user.getNci()));
-      
     }
 
     @FXML
     private void handleVoidConsultation(MouseEvent event) {
-        //System.out.println(); 
+        
         btnDelConsultation.setVisible(true);
         Consultation c = tblvConsultations.getSelectionModel().getSelectedItem();
         if (c.getStatut().equals("Annule"))
@@ -286,7 +285,7 @@ public class MedecinConsultationController implements Initializable {
                 service.deleteConsultation(c.getId());
                 showAlert(String.valueOf("Consultation annulée"));
                 loddTableView(service.showConsultationToMedecin(user.getNci()));
-              //showAlert("");
+              
             }
         }
         
@@ -304,6 +303,85 @@ public class MedecinConsultationController implements Initializable {
             confirmation = true;
         } 
         return confirmation;
+    }
+
+    @FXML
+    private void handleMakeConsultation(MouseEvent event) {
+        
+        Consultation c = tblvConsultations.getSelectionModel().getSelectedItem();
+        String temperature = txtTemperature.getText();
+        String poids = txtPoids.getText();
+        String tension = txtTension.getText();
+        String dateNewPrestation = datePrestation.getText();
+        //validation des constantes
+         if(temperature.isEmpty() || poids.isEmpty() || tension.isEmpty())      
+        {
+            showAlert("Tous les champs sont obligatoires");
+        }
+         else
+         {
+             //verification si les bouttons sont visible (si le boutton d'ordonnace est 
+             //visible alors on prescrit une prestation) et inversement
+             if(btnOrdonnance.isVisible())
+             {
+                 TypePrestation type = cboTypePrestation.getSelectionModel().getSelectedItem();
+                 //verification de la date et le type ont été choisis;
+                 if (dateNewPrestation.isEmpty() || type == null)
+                 {
+                     showAlert("Veuillez renseigner tous les champs du formulaire de prescription");
+                 }
+                 else{
+                     //on entre dans le esle quand les champs sont renseignés
+                     //verifier si la date est au bon format
+                     try{
+                         //Tout les champs sont valide
+                        // 1 - Insertion des constantes prises 
+                        Constantes constante = new Constantes(
+                            Integer.parseInt(temperature), Integer.parseInt(poids),Integer.parseInt(tension), c.getRdvId()
+                        );
+                        int idConstanteGenere = service.insertConstantes(constante);
+                        showAlert("Id constante : " + String.valueOf(idConstanteGenere));
+                        
+                        
+                        // 2- creation de rdv pour pour la prestation
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Date dateX = new Date(sdf.parse(dateNewPrestation).getTime());
+                         Rdv rdv = new Rdv(
+                            dateX,c.getPatientNci(),"En Cours",0,type.getId()
+                            );
+                            service.askRdv(rdv);
+                            showAlert("Demande de Rdv envoyé");
+                        
+                        //3 - mise à jour du statut de la consultation
+                        service.saveConsultation(c.getId());
+                        
+                        // 4 - mise à jour de la tblv
+                        loddTableView(service.showConsultationToMedecin(user.getNci()));
+                        
+                        
+                            
+                     }
+                     catch (Exception ex)
+                     {
+                        showAlert("Format de date invalide");
+                     }
+                     
+                 }
+             }
+             else
+             {
+                 showAlert("prescription d'ordonnance");
+             }
+                 
+             
+         }
+        /*
+        showAlert(String.valueOf(date) + " - nci " 
+                +String.valueOf(nci) + " - temperature " 
+                + String.valueOf(temperature) + " - poids " 
+                + String.valueOf(poids) + " - tendion " 
+                + String.valueOf(tension) );
+        */
     }
     
     

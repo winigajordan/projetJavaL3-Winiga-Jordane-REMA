@@ -8,6 +8,7 @@ package services;
 import dto.ConsultationDto;
 import dto.PrestationDto;
 import dto.RdvDto;
+import entities.Constantes;
 import entities.Consultation;
 import entities.Medecin;
 import entities.Prestation;
@@ -52,6 +53,8 @@ public interface IService {
      //Medecin
      public List <Consultation> showConsultationToMedecin(int medecin_nci);
      public int deleteConsultation(int idConsultation);
+     public int insertConstantes(Constantes c);
+     public int saveConsultation(int idConsultation);
      
      
      

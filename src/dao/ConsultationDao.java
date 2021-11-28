@@ -26,7 +26,8 @@ public class ConsultationDao implements IDao <Consultation>{
     private final String SQL_FIND_ALL = "SELECT * FROM consultation";
     private final String SQL_SELECT_BY_NCI_MEDECIN = "SELECT * FROM consultation WHERE medecin_nci = ?";
     private final String SQL_CHANGE_STATUT = "UPDATE consultation SET statut = 'Annule' WHERE id=?";
-
+    private final String SQL_CHANGE_STATUT_TO_DONE = "UPDATE consultation SET statut = 'Fait' WHERE id=?";
+    
     
     public List <ConsultationDto> findByNci(int nci_patient) 
     {
@@ -170,6 +171,27 @@ public class ConsultationDao implements IDao <Consultation>{
         try {
             database.getPs().setInt(1,idConsultation);
             database.executeUpdate(SQL_CHANGE_STATUT);
+            ResultSet rs = database.getPs().getGeneratedKeys();
+            if(rs.next())
+            {
+                idModifie = rs.getInt("id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RdvDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    database.closeConnexion();
+    return idModifie;
+    }
+    
+    public int updateStatutFait(int idConsultation)
+    {
+        int idModifie = 0;
+    database.openConnexion();
+    database.initPrepareStatement(SQL_CHANGE_STATUT_TO_DONE);
+        try {
+            database.getPs().setInt(1,idConsultation);
+            database.executeUpdate(SQL_CHANGE_STATUT_TO_DONE);
             ResultSet rs = database.getPs().getGeneratedKeys();
             if(rs.next())
             {
