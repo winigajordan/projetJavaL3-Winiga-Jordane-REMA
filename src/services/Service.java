@@ -8,6 +8,7 @@ package services;
 import dao.ConstantesDao;
 import dao.ConsultationDao;
 import dao.MedecinDao;
+import dao.MedicamentDao;
 import dao.PatientDao;
 import dao.PrestationDao;
 import dao.RdvDao;
@@ -20,6 +21,7 @@ import dto.RdvDto;
 import entities.Constantes;
 import entities.Consultation;
 import entities.Medecin;
+import entities.Medicament;
 import entities.Patient;
 import entities.Prestation;
 import entities.Rdv;
@@ -46,6 +48,7 @@ public class Service implements IService{
     ConsultationDao consultationDao = new ConsultationDao();
     MedecinDao medecinDao = new MedecinDao(); 
     ConstantesDao constantesDao = new ConstantesDao();
+    MedicamentDao medicamentDao = new MedicamentDao();
 
     @Override
     public User login(String login, String password) {
@@ -208,8 +211,13 @@ public class Service implements IService{
     }
 
     @Override
-    public int saveConsultation(int idConsultation) {
-        return consultationDao.updateStatutFait(idConsultation);
+    public int saveConsultation(int idConsultation,int idRdv, int idConsante) {
+        return consultationDao.updateStatutFait(idConsultation,idRdv, idConsante);
+    }
+
+    @Override
+    public List<Medicament> findAllMedocs() {
+        return medicamentDao.findAll();
     }
     
     

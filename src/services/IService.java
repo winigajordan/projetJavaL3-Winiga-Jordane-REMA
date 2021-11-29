@@ -11,6 +11,7 @@ import dto.RdvDto;
 import entities.Constantes;
 import entities.Consultation;
 import entities.Medecin;
+import entities.Medicament;
 import entities.Prestation;
 import entities.Rdv;
 import entities.Specialite;
@@ -54,7 +55,8 @@ public interface IService {
      public List <Consultation> showConsultationToMedecin(int medecin_nci);
      public int deleteConsultation(int idConsultation);
      public int insertConstantes(Constantes c);
-     public int saveConsultation(int idConsultation);
+     public int saveConsultation(int idConsultation,int idRdv, int idConstante);
+     public List<Medicament> findAllMedocs();
      
      
      

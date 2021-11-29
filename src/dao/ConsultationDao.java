@@ -26,7 +26,8 @@ public class ConsultationDao implements IDao <Consultation>{
     private final String SQL_FIND_ALL = "SELECT * FROM consultation";
     private final String SQL_SELECT_BY_NCI_MEDECIN = "SELECT * FROM consultation WHERE medecin_nci = ?";
     private final String SQL_CHANGE_STATUT = "UPDATE consultation SET statut = 'Annule' WHERE id=?";
-    private final String SQL_CHANGE_STATUT_TO_DONE = "UPDATE consultation SET statut = 'Fait' WHERE id=?";
+    private final String SQL_CHANGE_STATUT_TO_DONE = "UPDATE consultation SET statut = 'Fait', constantes_id =?, prestation_id = ? WHERE id=?";
+    //private final String SQL_INSERT_CONSTANTE_ID = "";
     
     
     public List <ConsultationDto> findByNci(int nci_patient) 
@@ -184,25 +185,24 @@ public class ConsultationDao implements IDao <Consultation>{
     return idModifie;
     }
     
-    public int updateStatutFait(int idConsultation)
+    public int updateStatutFait(int idConsultation, int idRdv, int idConstante)
     {
-        int idModifie = 0;
-    database.openConnexion();
-    database.initPrepareStatement(SQL_CHANGE_STATUT_TO_DONE);
+       database.openConnexion();
+       int idGenere = 0;
+       database.initPrepareStatement(SQL_CHANGE_STATUT_TO_DONE);
+       
         try {
-            database.getPs().setInt(1,idConsultation);
-            database.executeUpdate(SQL_CHANGE_STATUT_TO_DONE);
-            ResultSet rs = database.getPs().getGeneratedKeys();
-            if(rs.next())
-            {
-                idModifie = rs.getInt("id");
-            }
+            database.getPs().setInt(1, idConsultation);
+            database.getPs().setInt(2, idRdv);
+            database.getPs().setInt(3, idConsultation);
+            idGenere = database.executeUpdate(SQL_CHANGE_STATUT_TO_DONE);
         } catch (SQLException ex) {
-            Logger.getLogger(RdvDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsultationDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-    database.closeConnexion();
-    return idModifie;
+       
+       database.closeConnexion();
+        return idGenere;
+       
     }
     
     

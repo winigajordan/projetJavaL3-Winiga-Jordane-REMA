@@ -8,6 +8,7 @@ package views;
 import dto.RdvDto;
 import entities.Constantes;
 import entities.Consultation;
+import entities.Medicament;
 import entities.Prestation;
 import entities.Rdv;
 import entities.Specialite;
@@ -23,8 +24,10 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -33,9 +36,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import services.Service;
 
 /**
@@ -75,15 +81,16 @@ public class MedecinConsultationController implements Initializable {
     
     //Ordonnance
     @FXML
-    private ComboBox<?> cboMedicaments;
+    private ComboBox<Medicament> cboMedicaments;
     @FXML
     private TableView<?> tblvMedicaments;
     @FXML
-    private TableColumn<?, ?> tblcMedCode;
+    private TableColumn<Medicament, String> tblcMedCode;
     @FXML
-    private TableColumn<?, ?> tblcMedNom;
+    private TableColumn<Medicament, String> tblcMedNom;
     @FXML
-    private TableColumn<?, ?> tblcMedPosologie;
+    private TableColumn<String, String> tblcMedPosologie;
+    ObservableList <Medicament> obMed;
     
     
     //Lister les consultations
@@ -142,6 +149,10 @@ public class MedecinConsultationController implements Initializable {
         
         //chargement des dates des consultations dans le cbo
         loadComboBoxDate(user.getNci());
+        btnValidation.setVisible(false);
+        
+        loadCboMed();
+        start();
     }    
 
    
@@ -159,6 +170,7 @@ public class MedecinConsultationController implements Initializable {
         cboMedicaments.setVisible(true);
         btnAddProduct.setVisible(true);
         tblvMedicaments.setVisible(true);
+        
     }
 
     @FXML
@@ -194,20 +206,29 @@ public class MedecinConsultationController implements Initializable {
     private void loadInfos(MouseEvent event) {
         btnValidation.setVisible(true);
         Consultation c = tblvConsultations.getSelectionModel().getSelectedItem();
+        
+        
         if(c==null)
         {
             showAlert("Veuillez selectionner une consultation");
         }
         else
         {
+            
             dateConsultation.setText(String.valueOf(c.getDate()));
             nciPatient.setText(String.valueOf(c.getPatientNci()));
             if (c.getStatut().equals("Annule"))
             {
+                
                 btnValidation.setVisible(false);
             }
             else if (c.getStatut().equals("Fait")){
+                btnDelConsultation.setVisible(false);
                 btnValidation.setVisible(false);
+            }
+            else
+            {
+            btnDelConsultation.setVisible(true);
             }
         }    
     }
@@ -276,9 +297,7 @@ public class MedecinConsultationController implements Initializable {
         {
             showAlert(String.valueOf("Consultation annulée"));
         }
-        else if (c.getStatut().equals("Fait")){
-            btnDelConsultation.setVisible(false);
-        }
+        
         else
         {
             if (showDiaolg()){
@@ -342,10 +361,10 @@ public class MedecinConsultationController implements Initializable {
                              //Tout les champs sont valide
                             // 1 - Insertion des constantes prises 
                             Constantes constante = new Constantes(
-                                intTemperature, intPoids,intTension, c.getRdvId()
+                                intTemperature, intPoids,intTension, c.getId()
                             );
                             int idConstanteGenere = service.insertConstantes(constante);
-                            showAlert("Id constante : " + String.valueOf(idConstanteGenere));
+                            //showAlert("Id constante : " + String.valueOf(idConstanteGenere));
 
 
                             // 2- creation de rdv pour pour la prestation
@@ -354,14 +373,15 @@ public class MedecinConsultationController implements Initializable {
                              Rdv rdv = new Rdv(
                                 dateX,c.getPatientNci(),"En Cours",0,type.getId()
                                 );
-                                service.askRdv(rdv);
-                                showAlert("Demande de Rdv envoyé");
+                                int idRdvDemande = service.askRdv(rdv);
+                                //showAlert("Demande de Rdv envoyé");
 
-                            //3 - mise à jour du statut de la consultation
-                            service.saveConsultation(c.getId());
+                            //3 - mise à jour du statut de la consultation et insertion de l'id des constantes
+                            service.saveConsultation(c.getId(), idRdvDemande, idConstanteGenere );
 
                             // 4 - mise à jour de la tblv
                             loddTableView(service.showConsultationToMedecin(user.getNci()));
+                            btnValidation.setVisible(false);
 
 
 
@@ -377,9 +397,9 @@ public class MedecinConsultationController implements Initializable {
                  {
                      showAlert("prescription d'ordonnance");
                  }
-
-                
-             } catch (Exception ex)
+ 
+             } 
+             catch (Exception ex)
              {
                  showAlert("Valeurs de constantes incorrectes");
              }
@@ -389,7 +409,58 @@ public class MedecinConsultationController implements Initializable {
     }
     
     
+    //chargement de la liste des medicaments
+    private void loadCboMed()
+    {
+      List<Medicament> medicaments = service.findAllMedocs();
+      obMed = FXCollections.observableArrayList(medicaments);
+      cboMedicaments.setItems(obMed);
+    }
     
+
+
+    public void start()
+    {
+        Stage s = null;
+        // set title for the stage
+        s.setTitle("creating textInput dialog");
+  
+        // create a tile pane
+        TilePane r = new TilePane();
+  
+        // create a text input dialog
+        TextInputDialog td = new TextInputDialog("enter any text");
+  
+        // setHeaderText
+        td.setHeaderText("enter your name");
+  
+        // create a button
+        Button d = new Button("click");
+  
+        // create a event handler
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                // show the text input dialog
+                td.show();
+            }
+        };
+  
+        // set on action of event
+        d.setOnAction(event);
+  
+        // add button and label
+        r.getChildren().add(d);
+  
+        // create a scene
+        Scene sc = new Scene(r, 500, 300);
+  
+        // set the scene
+        s.setScene(sc);
+  
+        s.show();
+    }
+
 }
 
 
