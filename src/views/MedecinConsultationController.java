@@ -320,70 +320,80 @@ public class MedecinConsultationController implements Initializable {
         }
          else
          {
-             //verification si les bouttons sont visible (si le boutton d'ordonnace est 
-             //visible alors on prescrit une prestation) et inversement
-             if(btnOrdonnance.isVisible())
-             {
-                 TypePrestation type = cboTypePrestation.getSelectionModel().getSelectedItem();
-                 //verification de la date et le type ont été choisis;
-                 if (dateNewPrestation.isEmpty() || type == null)
+             try{
+                int intTemperature = Integer.parseInt(temperature); 
+                int intPoids = Integer.parseInt(poids);
+                int intTension = Integer.parseInt(tension);
+                
+                //verification si les bouttons sont visible (si le boutton d'ordonnace est 
+                //visible alors on prescrit une prestation) et inversement
+                if(btnOrdonnance.isVisible())
                  {
-                     showAlert("Veuillez renseigner tous les champs du formulaire de prescription");
-                 }
-                 else{
-                     //on entre dans le esle quand les champs sont renseignés
-                     //verifier si la date est au bon format
-                     try{
-                         //Tout les champs sont valide
-                        // 1 - Insertion des constantes prises 
-                        Constantes constante = new Constantes(
-                            Integer.parseInt(temperature), Integer.parseInt(poids),Integer.parseInt(tension), c.getRdvId()
-                        );
-                        int idConstanteGenere = service.insertConstantes(constante);
-                        showAlert("Id constante : " + String.valueOf(idConstanteGenere));
-                        
-                        
-                        // 2- creation de rdv pour pour la prestation
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        Date dateX = new Date(sdf.parse(dateNewPrestation).getTime());
-                         Rdv rdv = new Rdv(
-                            dateX,c.getPatientNci(),"En Cours",0,type.getId()
-                            );
-                            service.askRdv(rdv);
-                            showAlert("Demande de Rdv envoyé");
-                        
-                        //3 - mise à jour du statut de la consultation
-                        service.saveConsultation(c.getId());
-                        
-                        // 4 - mise à jour de la tblv
-                        loddTableView(service.showConsultationToMedecin(user.getNci()));
-                        
-                        
-                            
-                     }
-                     catch (Exception ex)
+                     TypePrestation type = cboTypePrestation.getSelectionModel().getSelectedItem();
+                     //verification de la date et le type ont été choisis;
+                     if (dateNewPrestation.isEmpty() || type == null)
                      {
-                        showAlert("Format de date invalide");
+                         showAlert("Veuillez renseigner tous les champs du formulaire de prescription");
                      }
-                     
+                     else{
+                         //on entre dans le esle quand les champs sont renseignés
+                         //verifier si la date est au bon format
+                         try{
+                             //Tout les champs sont valide
+                            // 1 - Insertion des constantes prises 
+                            Constantes constante = new Constantes(
+                                intTemperature, intPoids,intTension, c.getRdvId()
+                            );
+                            int idConstanteGenere = service.insertConstantes(constante);
+                            showAlert("Id constante : " + String.valueOf(idConstanteGenere));
+
+
+                            // 2- creation de rdv pour pour la prestation
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            Date dateX = new Date(sdf.parse(dateNewPrestation).getTime());
+                             Rdv rdv = new Rdv(
+                                dateX,c.getPatientNci(),"En Cours",0,type.getId()
+                                );
+                                service.askRdv(rdv);
+                                showAlert("Demande de Rdv envoyé");
+
+                            //3 - mise à jour du statut de la consultation
+                            service.saveConsultation(c.getId());
+
+                            // 4 - mise à jour de la tblv
+                            loddTableView(service.showConsultationToMedecin(user.getNci()));
+
+
+
+                         }
+                         catch (Exception ex)
+                         {
+                            showAlert("Format de date invalide");
+                         }
+
+                     }
                  }
-             }
-             else
+                 else
+                 {
+                     showAlert("prescription d'ordonnance");
+                 }
+
+                
+             } catch (Exception ex)
              {
-                 showAlert("prescription d'ordonnance");
+                 showAlert("Valeurs de constantes incorrectes");
              }
-                 
-             
+            
          }
-        /*
-        showAlert(String.valueOf(date) + " - nci " 
-                +String.valueOf(nci) + " - temperature " 
-                + String.valueOf(temperature) + " - poids " 
-                + String.valueOf(poids) + " - tendion " 
-                + String.valueOf(tension) );
-        */
+
     }
     
     
     
 }
+
+
+/*
+                  
+             
+*/
