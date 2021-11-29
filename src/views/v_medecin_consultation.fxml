@@ -94,7 +94,7 @@
                   </Text>
                   <ComboBox fx:id="cboTypePrestation" layoutX="211.0" layoutY="75.0" prefWidth="150.0" promptText="Type de prestation" />
                   <ComboBox fx:id="cboMedicaments" layoutX="125.0" layoutY="13.0" prefHeight="25.0" prefWidth="166.0" promptText="Liste des medicaments" />
-                  <Button fx:id="btnAddProduct" layoutX="305.0" layoutY="13.0" mnemonicParsing="false" text="Prescrire" />
+                  <Button fx:id="btnAddProduct" layoutX="305.0" layoutY="13.0" mnemonicParsing="false" onMouseClicked="#handleAddMedoc" text="Prescrire" />
                   <TableView fx:id="tblvMedicaments" layoutX="125.0" layoutY="46.0" prefHeight="76.0" prefWidth="244.0">
                     <columns>
                       <TableColumn fx:id="tblcMedCode" prefWidth="55.0" text="Code" />

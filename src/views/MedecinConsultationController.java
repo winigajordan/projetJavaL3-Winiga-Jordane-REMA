@@ -5,6 +5,7 @@
  */
 package views;
 
+import dto.MedicamentDto;
 import dto.RdvDto;
 import entities.Constantes;
 import entities.Consultation;
@@ -24,10 +25,8 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -39,9 +38,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import services.Service;
 
 /**
@@ -52,6 +49,7 @@ import services.Service;
 public class MedecinConsultationController implements Initializable {
 
     Service service = new Service();
+    private static MedecinConsultationController ctrl;
     //InfoConsultation
    
     @FXML
@@ -83,14 +81,17 @@ public class MedecinConsultationController implements Initializable {
     @FXML
     private ComboBox<Medicament> cboMedicaments;
     @FXML
-    private TableView<?> tblvMedicaments;
+    private TableView<MedicamentDto> tblvMedicaments;
     @FXML
-    private TableColumn<Medicament, String> tblcMedCode;
+    private TableColumn<MedicamentDto, String> tblcMedCode;
     @FXML
-    private TableColumn<Medicament, String> tblcMedNom;
+    private TableColumn<MedicamentDto, String> tblcMedNom;
     @FXML
-    private TableColumn<String, String> tblcMedPosologie;
+    private TableColumn<MedicamentDto, String> tblcMedPosologie;
     ObservableList <Medicament> obMed;
+    ObservableList<MedicamentDto> obMedDto;
+    List <MedicamentDto> listMed = new ArrayList() ;
+    
     
     
     //Lister les consultations
@@ -130,6 +131,7 @@ public class MedecinConsultationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         // TODO
         btnOrdonnance.setVisible(false);
         lblTexteDate.setVisible(false);
@@ -151,8 +153,9 @@ public class MedecinConsultationController implements Initializable {
         loadComboBoxDate(user.getNci());
         btnValidation.setVisible(false);
         
+        //Chargement des medicaments
         loadCboMed();
-        start();
+        //dialogue();
     }    
 
    
@@ -170,6 +173,7 @@ public class MedecinConsultationController implements Initializable {
         cboMedicaments.setVisible(true);
         btnAddProduct.setVisible(true);
         tblvMedicaments.setVisible(true);
+        
         
     }
 
@@ -289,22 +293,19 @@ public class MedecinConsultationController implements Initializable {
     }
 
     @FXML
-    private void handleVoidConsultation(MouseEvent event) {
-        
+    private void handleVoidConsultation(MouseEvent event) {        
         btnDelConsultation.setVisible(true);
         Consultation c = tblvConsultations.getSelectionModel().getSelectedItem();
         if (c.getStatut().equals("Annule"))
         {
             showAlert(String.valueOf("Consultation annulée"));
-        }
-        
+        }  
         else
         {
             if (showDiaolg()){
                 service.deleteConsultation(c.getId());
                 showAlert(String.valueOf("Consultation annulée"));
-                loddTableView(service.showConsultationToMedecin(user.getNci()));
-              
+                loddTableView(service.showConsultationToMedecin(user.getNci()));             
             }
         }
         
@@ -417,54 +418,57 @@ public class MedecinConsultationController implements Initializable {
       cboMedicaments.setItems(obMed);
     }
     
-
-
-    public void start()
+    //fonction de dialogue pour demander au medecin de saisir la posologie
+    
+    private String dialogue()
     {
-        Stage s = null;
-        // set title for the stage
-        s.setTitle("creating textInput dialog");
-  
-        // create a tile pane
-        TilePane r = new TilePane();
-  
-        // create a text input dialog
-        TextInputDialog td = new TextInputDialog("enter any text");
-  
-        // setHeaderText
-        td.setHeaderText("enter your name");
-  
-        // create a button
-        Button d = new Button("click");
-  
-        // create a event handler
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e)
-            {
-                // show the text input dialog
-                td.show();
-            }
-        };
-  
-        // set on action of event
-        d.setOnAction(event);
-  
-        // add button and label
-        r.getChildren().add(d);
-  
-        // create a scene
-        Scene sc = new Scene(r, 500, 300);
-  
-        // set the scene
-        s.setScene(sc);
-  
-        s.show();
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Prescription de medicament");
+        dialog.setHeaderText("Veuillez saisir la pososgie:");
+        dialog.setContentText("Posologie : ");
+        String result = dialog.showAndWait().get();
+        return result;
+    }
+    
+    private MedicamentDto addPosologie (Medicament med){ 
+        String posologie = dialogue();
+        while(posologie.isEmpty())
+        {
+            //showAlert("Veuillez saisir la posologie du medicament choisi");
+            posologie = dialogue();
+        }
+        MedicamentDto dto = new MedicamentDto(med.getId(), med.getCode(), med.getNom(), posologie);
+        return dto;
+    }
+    
+    
+    
+    private void loadTableViewMed(List <MedicamentDto> med)
+    {
+        
+        //consultations = service.showConsultationToMedecin(user.getNci());
+        tblcMedCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+       tblcMedNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+       tblcMedPosologie.setCellValueFactory(new PropertyValueFactory<>("posologie"));
+        obMedDto = FXCollections.observableArrayList(med);
+        tblvMedicaments.setItems(obMedDto);
+    }
+    
+
+    @FXML
+    private void handleAddMedoc(MouseEvent event) {
+        Medicament med = cboMedicaments.getSelectionModel().getSelectedItem();
+        if(med==null){
+            showAlert("Veuillez choisir un médicament à prescrir");
+        }
+        else
+        {
+            
+            MedicamentDto medDto = addPosologie(med);
+            listMed.add(medDto);
+            loadTableViewMed(listMed);   
+        }
+            
     }
 
 }
-
-
-/*
-                  
-             
-*/
