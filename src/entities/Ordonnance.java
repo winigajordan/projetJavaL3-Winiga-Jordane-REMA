@@ -10,5 +10,28 @@ package entities;
  * @author user
  */
 public class Ordonnance {
-    
+     private int id;
+     private int idConsultation;
+
+    public Ordonnance(int idConsultation) {
+        this.idConsultation = idConsultation;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdConsultation() {
+        return idConsultation;
+    }
+
+    public void setIdConsultation(int idConsultation) {
+        this.idConsultation = idConsultation;
+    }
+     
+     
 }

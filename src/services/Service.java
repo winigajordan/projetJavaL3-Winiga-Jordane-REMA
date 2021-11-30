@@ -9,6 +9,8 @@ import dao.ConstantesDao;
 import dao.ConsultationDao;
 import dao.MedecinDao;
 import dao.MedicamentDao;
+import dao.OrdMedDao;
+import dao.OrdonnanceDao;
 import dao.PatientDao;
 import dao.PrestationDao;
 import dao.RdvDao;
@@ -22,6 +24,8 @@ import entities.Constantes;
 import entities.Consultation;
 import entities.Medecin;
 import entities.Medicament;
+import entities.OrdMed;
+import entities.Ordonnance;
 import entities.Patient;
 import entities.Prestation;
 import entities.Rdv;
@@ -49,6 +53,8 @@ public class Service implements IService{
     MedecinDao medecinDao = new MedecinDao(); 
     ConstantesDao constantesDao = new ConstantesDao();
     MedicamentDao medicamentDao = new MedicamentDao();
+    OrdMedDao ordMedDao = new OrdMedDao();
+    OrdonnanceDao ordonnanceDao = new OrdonnanceDao();
 
     @Override
     public User login(String login, String password) {
@@ -218,6 +224,16 @@ public class Service implements IService{
     @Override
     public List<Medicament> findAllMedocs() {
         return medicamentDao.findAll();
+    }
+
+    @Override
+    public int insertOrdMedList(OrdMed ord) {
+        return ordMedDao.insert(ord);
+    }
+
+    @Override
+    public int createOrdonance(Ordonnance ord) {
+        return ordonnanceDao.insert(ord);
     }
     
     

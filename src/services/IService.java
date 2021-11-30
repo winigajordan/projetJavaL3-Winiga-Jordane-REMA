@@ -12,6 +12,8 @@ import entities.Constantes;
 import entities.Consultation;
 import entities.Medecin;
 import entities.Medicament;
+import entities.OrdMed;
+import entities.Ordonnance;
 import entities.Prestation;
 import entities.Rdv;
 import entities.Specialite;
@@ -57,6 +59,8 @@ public interface IService {
      public int insertConstantes(Constantes c);
      public int saveConsultation(int idConsultation,int idRdv, int idConstante);
      public List<Medicament> findAllMedocs();
+     public int createOrdonance(Ordonnance ord);
+     public int insertOrdMedList(OrdMed ord);
      
      
      

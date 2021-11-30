@@ -5,7 +5,7 @@
  */
 package dao;
 
-import entities.Ordonnance;
+import entities.OrdMed;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,17 +16,19 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class OrdonnanceDao implements IDao <Ordonnance>{
+public class OrdMedDao implements IDao <OrdMed>{
     DataBase database = new DataBase();
-    private final String SQL_INSERT = "INSERT INTO ordonnance (consultation_id) VALUES(?)";
+    private final String SQL_INSERT = "INSERT INTO ord_med(id_med, posologie,id_consultation) VALUES (?,?,?)";
 
     @Override
-    public int insert(Ordonnance ord) {
+    public int insert(OrdMed ordMed) {
         int idGenere = 0;
         database.openConnexion();
         database.initPrepareStatement(SQL_INSERT);
         try {
-            database.getPs().setInt(1, ord.getIdConsultation()); 
+            database.getPs().setInt(1, ordMed.getIdMed());
+            database.getPs().setString(2, ordMed.getPosologie());
+            database.getPs().setInt(3, ordMed.getIdOrdonnance());
             database.executeUpdate(SQL_INSERT);
             ResultSet rs = database.getPs().getGeneratedKeys();
             while (rs.next()){
@@ -40,7 +42,7 @@ public class OrdonnanceDao implements IDao <Ordonnance>{
     }
 
     @Override
-    public int update(Ordonnance ogj) {
+    public int update(OrdMed ogj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -50,12 +52,12 @@ public class OrdonnanceDao implements IDao <Ordonnance>{
     }
 
     @Override
-    public List<Ordonnance> findAll() {
+    public List<OrdMed> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Ordonnance findById(int id) {
+    public OrdMed findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -10,6 +10,8 @@ import dto.RdvDto;
 import entities.Constantes;
 import entities.Consultation;
 import entities.Medicament;
+import entities.OrdMed;
+import entities.Ordonnance;
 import entities.Prestation;
 import entities.Rdv;
 import entities.Specialite;
@@ -155,7 +157,7 @@ public class MedecinConsultationController implements Initializable {
         
         //Chargement des medicaments
         loadCboMed();
-        //dialogue();
+        
     }    
 
    
@@ -290,6 +292,7 @@ public class MedecinConsultationController implements Initializable {
     @FXML
     private void handleResetTblvConsultation(MouseEvent event) {
        loddTableView(service.showConsultationToMedecin(user.getNci()));
+       //System.out.println(listMed);
     }
 
     @FXML
@@ -396,7 +399,27 @@ public class MedecinConsultationController implements Initializable {
                  }
                  else
                  {
-                     showAlert("prescription d'ordonnance");
+                     //Prescription d'ordonnance
+                     //verifier si la liste des médicaments est vide
+                     if (listMed.size()==0){
+                        showAlert("Veuillez prescrire un medicament");
+                     }
+                     else{
+                         Ordonnance ord = new Ordonnance(c.getId());
+                         //creation de l'ordonnance
+                         int idOrdGenere = service.createOrdonance(ord);
+                         for (MedicamentDto med : listMed)
+                        {
+                            //creation de  la table intermediaire
+                            OrdMed ordmed = new OrdMed(med.getId(), med.getPosologie(),idOrdGenere );
+                            int idOrdMedGenere = service.insertOrdMedList(ordmed);
+                            
+                        }
+                         
+                     }
+                     
+                     //showAlert("prescription d'ordonnance");
+                     
                  }
  
              } 
@@ -463,7 +486,6 @@ public class MedecinConsultationController implements Initializable {
         }
         else
         {
-            
             MedicamentDto medDto = addPosologie(med);
             listMed.add(medDto);
             loadTableViewMed(listMed);   
