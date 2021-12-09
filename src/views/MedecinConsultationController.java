@@ -408,6 +408,7 @@ public class MedecinConsultationController implements Initializable {
                          Ordonnance ord = new Ordonnance(c.getId());
                          //creation de l'ordonnance
                          int idOrdGenere = service.createOrdonance(ord);
+                         showAlert(String.valueOf(idOrdGenere));
                          for (MedicamentDto med : listMed)
                         {
                             //creation de  la table intermediaire
