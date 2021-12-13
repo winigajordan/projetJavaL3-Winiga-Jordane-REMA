@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class PrestationDto {
     private int id;
+    private int patientNci;
     private Date date;
     private String prestation;
     private String statut;
@@ -32,10 +33,24 @@ public class PrestationDto {
         this.statut = statut;
         this.resultat = resultat;
     }
+
+    public PrestationDto(int id, int patientNci, Date date, String prestation, String statut, String resultat) {
+        this.id = id;
+        this.patientNci = patientNci;
+        this.date = date;
+        this.prestation = prestation;
+        this.statut = statut;
+        this.resultat = resultat;
+    }
+
     
-    
-    
-    
+    public int getPatientNci() {
+        return patientNci;
+    }
+
+    public void setPatientNci(int patientNci) {
+        this.patientNci = patientNci;
+    }
 
     public int getId() {
         return id;

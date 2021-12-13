@@ -80,22 +80,26 @@ public class ConnexionPageController implements Initializable {
                txtError.setText("login ou le mot de passe Incorrect");
                txtError.setVisible(true);
           }
-            else{
+            else
+            {
                 //Connexion établie
                 
-            if (user.getRole().equals("ROLE_PATIENT"))
-            {
-                laodPage("v_acceuilPatient");
-            }
-             if (user.getRole().equals("ROLE_MEDECIN"))
-            {
-                laodPage("v_medecin_acceuil");
-            }
-            if (user.getRole().equals("ROLE_SECREATAIRE"))
-            {
-                laodPage("v_acceuil_secretaire");
-            }
-            
+                if (user.getRole().equals("ROLE_PATIENT"))
+                {
+                    laodPage("v_acceuilPatient");
+                }
+                 if (user.getRole().equals("ROLE_MEDECIN"))
+                {
+                    laodPage("v_medecin_acceuil");
+                }
+                if (user.getRole().equals("ROLE_SECREATAIRE"))
+                {
+                    laodPage("v_acceuil_secretaire");
+                }
+                if (user.getRole().equals("ROLE_RP"))
+                {
+                    laodPage("v_acceuil_rp");
+                }
             }
         }
     }

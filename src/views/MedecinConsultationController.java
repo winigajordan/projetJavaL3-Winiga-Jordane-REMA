@@ -368,8 +368,6 @@ public class MedecinConsultationController implements Initializable {
                                 intTemperature, intPoids,intTension, c.getId()
                             );
                             int idConstanteGenere = service.insertConstantes(constante);
-                            //showAlert("Id constante : " + String.valueOf(idConstanteGenere));
-
 
                             // 2- creation de rdv pour pour la prestation
                             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -399,6 +397,11 @@ public class MedecinConsultationController implements Initializable {
                  }
                  else
                  {
+                     // 1 - Insertion des constantes prises 
+                            Constantes constante = new Constantes(
+                                intTemperature, intPoids,intTension, c.getId()
+                            );
+                            int idConstanteGenere = service.insertConstantes(constante);
                      //Prescription d'ordonnance
                      //verifier si la liste des médicaments est vide
                      if (listMed.size()==0){
@@ -414,8 +417,12 @@ public class MedecinConsultationController implements Initializable {
                             //creation de  la table intermediaire
                             OrdMed ordmed = new OrdMed(med.getId(), med.getPosologie(),idOrdGenere );
                             int idOrdMedGenere = service.insertOrdMedList(ordmed);
+                            //3 - mise à jour du statut de la consultation et insertion de l'id des constantes
+                            service.saveConsultation(c.getId(), 0, idConstanteGenere );
                             
                         }
+                        
+                         
                          
                      }
                      

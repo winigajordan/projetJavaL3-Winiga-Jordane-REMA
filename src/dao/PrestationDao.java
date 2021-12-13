@@ -25,7 +25,8 @@ public class PrestationDao implements IDao <Prestation>{
    //private final String  SQL_FIND_PRESTATION_BY_ID = "select * from prestation where id = ?";
    private final String SQL_FIND_BY_NCI = "select p.date, t.libelle_type_prestation, p.statut, p.resultat from prestation as p, type_prestation as t where p.type_prestation_id = t.id AND p.patient_nci= ? ";
    private final String SQL_INSERT = "INSERT INTO prestation (date, statut, resultat, patient_nci, type_prestation_id, prestation_rdv_id) VALUES (?,?,?,?,?,?)";
-   private final String SQL_FIND_ALL = "SELECT * FROM prestation";    
+   private final String SQL_FIND_ALL = "SELECT * FROM prestation"; 
+   private final String SQL_FIND_ALL_CONSULTATIONS = "select p.id, p.date, p.statut, p.resultat, p.patient_nci, t.libelle_type_prestation from prestation as p, type_prestation as t where p.type_prestation_id = t.id";
    
 
     @Override
@@ -129,5 +130,32 @@ public class PrestationDao implements IDao <Prestation>{
        return prestations;
     }
     
+     
+     public List <PrestationDto> returnPrestationToRp()
+     {
+         List <PrestationDto> prestations = new ArrayList();
+         dataBase.openConnexion();
+         dataBase.initPrepareStatement(SQL_FIND_ALL_CONSULTATIONS);
+         ResultSet rs = dataBase.executeSelect(SQL_FIND_ALL_CONSULTATIONS);
+       try {
+           while (rs.next()){
+               PrestationDto prestation = new PrestationDto(
+                       rs.getInt("id"),
+                       rs.getInt("patient_nci"),
+                       rs.getDate("date"),
+                       rs.getString("libelle_type_prestation"),
+                       rs.getString("statut"),
+                       rs.getString("resultat")
+               );
+               prestations.add(prestation);
+           }
+       } catch (SQLException ex) {
+           Logger.getLogger(PrestationDao.class.getName()).log(Level.SEVERE, null, ex);
+       }
+         
+         dataBase.closeConnexion();
+         return prestations;
+     }
    
+     
 }

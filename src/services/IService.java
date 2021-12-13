@@ -64,6 +64,10 @@ public interface IService {
      
      
      
+     //RP
+     public List <PrestationDto> showPrestationToRp();
+     
+     
      
     
 }

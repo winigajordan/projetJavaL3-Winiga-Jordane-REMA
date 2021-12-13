@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 09 déc. 2021 à 04:15
+-- Généré le : lun. 13 déc. 2021 à 05:03
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `constantes` (
   `tension` int NOT NULL,
   `id_consultation` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `constantes`
@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS `constantes` (
 
 INSERT INTO `constantes` (`id`, `temperature`, `poids`, `tension`, `id_consultation`) VALUES
 (1, 10, 10, 10, 1),
-(2, 30, 30, 30, 3);
+(2, 30, 30, 30, 3),
+(3, 40, 40, 100, 5);
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `consultation` (
   `consultation_rdv_id` int NOT NULL,
   `prestation_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `consultation`
@@ -74,7 +75,8 @@ INSERT INTO `consultation` (`id`, `constantes_id`, `statut`, `date`, `medecin_nc
 (1, 1, 'Fait', '2020-10-10', 2602, 778179211, NULL, 1, 1, 5),
 (2, NULL, 'En Cours', '2020-10-20', 2006, 778179211, NULL, 2, 2, NULL),
 (3, 3, 'Fait', '2021-10-10', 2005, 778179211, NULL, 2, 6, 7),
-(4, NULL, 'En Cours', '2020-09-08', 2602, 1234, NULL, 1, 8, NULL);
+(4, NULL, 'En Cours', '2020-09-08', 2602, 1234, NULL, 1, 8, NULL),
+(5, 5, 'Fait', '2030-10-10', 2602, 778179211, NULL, 1, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -110,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `ordonnance` (
   `id` int NOT NULL AUTO_INCREMENT,
   `consultation_id` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `ordonnance`
@@ -118,7 +120,9 @@ CREATE TABLE IF NOT EXISTS `ordonnance` (
 
 INSERT INTO `ordonnance` (`id`, `consultation_id`) VALUES
 (1, 4),
-(2, 4);
+(2, 4),
+(3, 4),
+(4, 5);
 
 -- --------------------------------------------------------
 
@@ -131,18 +135,23 @@ CREATE TABLE IF NOT EXISTS `ord_med` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_med` int NOT NULL,
   `posologie` varchar(255) NOT NULL,
-  `id_consultation` int NOT NULL,
+  `id_odonnance` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `ord_med`
 --
 
-INSERT INTO `ord_med` (`id`, `id_med`, `posologie`, `id_consultation`) VALUES
+INSERT INTO `ord_med` (`id`, `id_med`, `posologie`, `id_odonnance`) VALUES
 (1, 1, 'une fois par jours', 1),
 (2, 3, 'tous les jours', 1),
-(3, 3, 'hihihiiii', 2);
+(3, 3, 'hihihiiii', 2),
+(4, 1, 'une fois par jours', 3),
+(5, 2, 'deux fois par jours', 3),
+(6, 3, 'xxx', 3),
+(7, 1, 'lol', 4),
+(8, 2, 'xxx', 4);
 
 -- --------------------------------------------------------
 
@@ -160,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `prestation` (
   `type_prestation_id` int NOT NULL,
   `prestation_rdv_id` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `prestation`
@@ -168,7 +177,9 @@ CREATE TABLE IF NOT EXISTS `prestation` (
 
 INSERT INTO `prestation` (`id`, `date`, `statut`, `resultat`, `patient_nci`, `type_prestation_id`, `prestation_rdv_id`) VALUES
 (1, '2020-10-30', 'En cours', '--', 778179211, 1, 3),
-(2, '2020-11-10', 'En cours', '--', 778179211, 2, 4);
+(2, '2020-11-10', 'En cours', '--', 778179211, 2, 4),
+(3, '2020-11-10', 'Annule', '--', 778179211, 2, 5),
+(4, '2021-10-01', 'Valide', '--', 778179211, 3, 7);
 
 -- --------------------------------------------------------
 
@@ -185,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `rdv` (
   `specialite_id` int DEFAULT NULL,
   `prestation_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `rdv`
@@ -196,10 +207,11 @@ INSERT INTO `rdv` (`id`, `date`, `etat`, `patient_nci`, `specialite_id`, `presta
 (2, '2020-10-20', 'Valide', 778179211, 2, 0),
 (3, '2020-10-30', 'Valide', 778179211, 0, 1),
 (4, '2020-11-10', 'Valide', 778179211, 0, 2),
-(5, '2020-11-10', 'En Cours', 778179211, 0, 2),
+(5, '2020-11-10', 'Valide', 778179211, 0, 2),
 (6, '2021-10-10', 'Valide', 778179211, 2, 0),
-(7, '2021-10-01', 'En Cours', 778179211, 0, 3),
-(8, '2020-09-08', 'Valide', 1234, 1, 0);
+(7, '2021-10-01', 'Valide', 778179211, 0, 3),
+(8, '2020-09-08', 'Valide', 1234, 1, 0),
+(9, '2030-10-10', 'Valide', 778179211, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -261,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `antecedents` varchar(255) DEFAULT NULL,
   `specialite_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `user`
@@ -274,7 +286,8 @@ INSERT INTO `user` (`id`, `nci`, `nom_complet`, `login`, `password`, `role`, `an
 (7, 260200, 'Odonto 2', 'odonto2', '1234', 'ROLE_MEDECIN', NULL, 1),
 (8, 2005, 'ophto 1', 'ophto1', '1234', 'ROLE_MEDECIN', NULL, 2),
 (9, 2006, 'ophto 2', 'ophto2', '1234', 'ROLE_MEDECIN', NULL, 2),
-(10, 1234, 'patient 1', 'patient1', '1234', 'ROLE_PATIENT', NULL, NULL);
+(10, 1234, 'patient 1', 'patient1', '1234', 'ROLE_PATIENT', NULL, NULL),
+(11, 228, 'Liz La Poule', 'rp', '1234', 'ROLE_RP', NULL, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

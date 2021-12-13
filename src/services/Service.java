@@ -235,6 +235,11 @@ public class Service implements IService{
     public int createOrdonance(Ordonnance ord) {
         return ordonnanceDao.insert(ord);
     }
+
+    @Override
+    public List<PrestationDto> showPrestationToRp() {
+        return prestationDao.returnPrestationToRp();
+    }
     
     
 }

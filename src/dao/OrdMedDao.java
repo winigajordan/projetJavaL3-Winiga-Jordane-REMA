@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class OrdMedDao implements IDao <OrdMed>{
     DataBase database = new DataBase();
-    private final String SQL_INSERT = "INSERT INTO ord_med(id_med, posologie,id_consultation) VALUES (?,?,?)";
+    private final String SQL_INSERT = "INSERT INTO ord_med(id_med, posologie,id_odonnance) VALUES (?,?,?)";
 
     @Override
     public int insert(OrdMed ordMed) {

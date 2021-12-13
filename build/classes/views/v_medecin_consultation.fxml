@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="668.0" style="-fx-background-color: ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MedecinConsultationController">
+<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="668.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.MedecinConsultationController">
    <children>
       <AnchorPane prefHeight="268.0" prefWidth="672.0" style="-fx-background-color: #D9DEF6;">
          <children>
@@ -114,18 +114,18 @@
                   <Font name="Bell MT" size="22.0" />
                </font>
             </Text>
-            <Text layoutX="99.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrer par date :">
+            <Text layoutX="120.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrer par date :">
                <font>
-                  <Font name="Bell MT" size="20.0" />
+                  <Font name="Bell MT" size="17.0" />
                </font>
             </Text>
             <ComboBox fx:id="cboListDate" layoutX="249.0" layoutY="42.0" onAction="#handleFilterByDate" prefHeight="25.0" prefWidth="166.0" promptText="Date des consultations" />
             <Button layoutX="426.0" layoutY="42.0" mnemonicParsing="false" onMouseClicked="#handleResetTblvConsultation" text="Afficher toutes les consultations" />
             <TableView fx:id="tblvConsultations" layoutX="39.0" layoutY="84.0" onMouseClicked="#loadInfos" prefHeight="200.0" prefWidth="591.0">
               <columns>
-                <TableColumn fx:id="tblcNciPatient" prefWidth="133.0" text="NCI patient" />
-                <TableColumn fx:id="tblcDate" prefWidth="301.0" text="Date" />
-                  <TableColumn fx:id="tblcEtat" prefWidth="156.0" text="Etat" />
+                <TableColumn fx:id="tblcNciPatient" prefWidth="133.0" style="-fx-alignment: CENTER;" text="NCI patient" />
+                <TableColumn fx:id="tblcDate" prefWidth="301.0" style="-fx-alignment: CENTER;" text="Date" />
+                  <TableColumn fx:id="tblcEtat" prefWidth="156.0" style="-fx-alignment: CENTER;" text="Etat" />
               </columns>
             </TableView>
             <Button fx:id="btnDelConsultation" layoutX="252.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#handleVoidConsultation" text="Annuler cette consultation" />
