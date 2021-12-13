@@ -65,7 +65,7 @@ public class V_accountCreationController implements Initializable {
         String nomComplet = txtNomComplet.getText().trim();
         String login = txtLogin.getText().trim();
         String password = txtfPassword.getText().trim();
-        String ant = txtAntecedents.getText().trim();
+        String ant = txtAntecedents.getText();
         
         if (nci.isEmpty() || nomComplet.isEmpty() || login.isEmpty() || password.isEmpty())
         {

@@ -202,8 +202,8 @@ public class MedecinConsultationController implements Initializable {
         
         //consultations = service.showConsultationToMedecin(user.getNci());
         tblcNciPatient.setCellValueFactory(new PropertyValueFactory<>("patientNci"));
-       tblcDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-       tblcEtat.setCellValueFactory(new PropertyValueFactory<>("statut"));
+        tblcDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        tblcEtat.setCellValueFactory(new PropertyValueFactory<>("statut"));
         obConsultation = FXCollections.observableArrayList(consultations);
         tblvConsultations.setItems(obConsultation);
     }

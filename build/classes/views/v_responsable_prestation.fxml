@@ -44,7 +44,7 @@
             <TextField fx:id="lblType" editable="false" layoutX="517.0" layoutY="56.0" prefHeight="25.0" prefWidth="131.0" />
             <TextField fx:id="lblDate" editable="false" layoutX="298.0" layoutY="52.0" prefHeight="25.0" prefWidth="131.0" />
             <TextArea fx:id="lblResultat" layoutX="176.0" layoutY="99.0" prefHeight="88.0" prefWidth="311.0" />
-            <Button fx:id="btnValidation" layoutX="240.0" layoutY="202.0" mnemonicParsing="false" text="Valider et importer les resultats" />
+            <Button fx:id="btnValidation" layoutX="240.0" layoutY="202.0" mnemonicParsing="false" onMouseClicked="#handleValidatePrestation" text="Valider et importer les resultats" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="245.0" prefHeight="362.0" prefWidth="668.0" style="-fx-background-color: #D9DEF6;">
@@ -59,8 +59,8 @@
                   <Font name="Bell MT" size="17.0" />
                </font>
             </Text>
-            <ComboBox layoutX="182.0" layoutY="47.0" prefWidth="150.0" />
-            <Button layoutX="395.0" layoutY="48.0" mnemonicParsing="false" text="Lister toutes les prestation" />
+            <ComboBox fx:id="cboDate" layoutX="182.0" layoutY="47.0" onAction="#handleFilterByDate" prefWidth="150.0" />
+            <Button layoutX="395.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#handleShowAllPrestations" text="Lister toutes les prestation" />
             <TableView fx:id="tblvPrestations" layoutX="107.0" layoutY="93.0" onMouseClicked="#loadInformations" prefHeight="200.0" prefWidth="451.0" style="-fx-text-align: center;">
               <columns>
                 <TableColumn fx:id="tblcNciPatient" prefWidth="85.0" style="-fx-alignment: CENTER;" text="NCI patient" />
@@ -69,7 +69,7 @@
                   <TableColumn fx:id="tblcEtat" prefWidth="117.0" style="-fx-alignment: CENTER;" text="Etat" />
               </columns>
             </TableView>
-            <Button layoutX="268.0" layoutY="308.0" mnemonicParsing="false" text="Annuler la prestation" />
+            <Button fx:id="btnAnnulation" layoutX="268.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#handleAnnulation" text="Annuler la prestation" />
          </children>
       </AnchorPane>
    </children>

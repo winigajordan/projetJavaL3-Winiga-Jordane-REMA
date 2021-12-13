@@ -32,6 +32,7 @@ import entities.Rdv;
 import entities.Specialite;
 import entities.TypePrestation;
 import entities.User;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -240,6 +241,25 @@ public class Service implements IService{
     public List<PrestationDto> showPrestationToRp() {
         return prestationDao.returnPrestationToRp();
     }
+
+    @Override
+    public List<Date> returnDate() {
+        return prestationDao.findDate();
+    }
+
+    @Override
+    public List<PrestationDto> showPrestationToRpByDate(Date date) {
+        return prestationDao.returnPrestationToRpByDate(date);
+    }
     
+    @Override
+    public void annulationPrestation(int id) {
+        prestationDao.annulationPrestation(id);
+    }
+
+    @Override
+    public void validatePrestation(int id, String resultat) {
+        prestationDao.updateConsultation(id, resultat);
+    }
     
 }

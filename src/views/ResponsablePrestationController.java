@@ -9,13 +9,17 @@ import dto.PrestationDto;
 import dto.RdvDto;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -55,6 +59,12 @@ public class ResponsablePrestationController implements Initializable {
     private TextArea lblResultat;
     @FXML
     private Button btnValidation;
+    @FXML
+    private Button btnAnnulation;
+    
+    private ObservableList<java.sql.Date> obDate; 
+    @FXML
+    private ComboBox<java.sql.Date> cboDate;
 
     /**
      * Initializes the controller class.
@@ -62,13 +72,14 @@ public class ResponsablePrestationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        laodTableViewPrestation();
+        laodTableViewPrestation(service.showPrestationToRp());
         btnValidation.setVisible(false);
+        btnAnnulation.setVisible(false);
+        loadCboDate();
     }    
     
-    public void laodTableViewPrestation(){
-        List <PrestationDto> prestations = service.showPrestationToRp();
-       
+    public void laodTableViewPrestation( List <PrestationDto> prestations){
+
        tblcNciPatient.setCellValueFactory(new PropertyValueFactory<>("patientNci"));
        tblcDate.setCellValueFactory(new PropertyValueFactory<>("date"));
        tblcType.setCellValueFactory(new PropertyValueFactory<>("prestation"));
@@ -100,15 +111,79 @@ public class ResponsablePrestationController implements Initializable {
             lblResultat.setText(p.getResultat());
             
             if(p.getStatut().equals("En cours")){
+                btnAnnulation.setVisible(true);
                 btnValidation.setVisible(true);
             }
             else
             {
+                btnAnnulation.setVisible(false);
                 btnValidation.setVisible(false);
             }
             
         }
         
     }
+    
+    public void loadCboDate(){
+        obDate = FXCollections.observableArrayList(service.returnDate());
+        cboDate.setItems(obDate);
+        
+    }
+
+    @FXML
+    private void handleFilterByDate(ActionEvent event) {
+        java.sql.Date date = cboDate.getSelectionModel().getSelectedItem();
+        laodTableViewPrestation(service.showPrestationToRpByDate(date));
+    }
+
+    @FXML
+    private void handleShowAllPrestations(MouseEvent event) {
+        laodTableViewPrestation(service.showPrestationToRp());
+    }
+
+    @FXML
+    private void handleAnnulation(MouseEvent event) {
+        if (showDiaolg("Voullez-vous annuler cette prestation ?")){
+            service.annulationPrestation(tblvPrestations.getSelectionModel().getSelectedItem().getId());
+            laodTableViewPrestation(service.showPrestationToRp());
+            btnAnnulation.setVisible(false);
+            btnValidation.setVisible(false);
+        }
+    }
+
+    private boolean showDiaolg(String message)
+    {
+        boolean confirmation = false;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation d'annulation");
+        //alert.setHeaderText("");
+        alert.setContentText(message);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            confirmation = true;
+        } 
+        return confirmation;
+    }
+
+    @FXML
+    private void handleValidatePrestation(MouseEvent event) {
+        
+        if(lblResultat.getText().equals("--")){
+            showAlert("Veuillez saisir le resultat de la prestation");
+        }
+        else{
+            if(showDiaolg("Voullez vous valider et importer les résultats de cette prestation ?"))
+            {
+                service.validatePrestation(tblvPrestations.getSelectionModel().getSelectedItem().getId(), lblResultat.getText());
+                laodTableViewPrestation(service.showPrestationToRp());
+                btnValidation.setVisible(false);
+                btnAnnulation.setVisible(false);
+            }
+        }
+        
+    }
+    
+    
+    
     
 }

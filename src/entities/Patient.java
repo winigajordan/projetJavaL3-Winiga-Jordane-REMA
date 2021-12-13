@@ -20,7 +20,7 @@ public class Patient extends User {
 
     public Patient( int nci, String nomComplet, String login, String password, String antecedent) {
         super(nci, nomComplet, login, password);
-        this.antecedents = antecedents;
+        this.antecedents = antecedent;
         this.role = ROLE;
     }
 
