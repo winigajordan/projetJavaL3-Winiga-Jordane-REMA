@@ -72,6 +72,10 @@ public interface IService {
      public void validatePrestation(int id, String resultat);
      
      
+     //Admin
+     public List<User> showUsers();
+     
+     
      
     
 }

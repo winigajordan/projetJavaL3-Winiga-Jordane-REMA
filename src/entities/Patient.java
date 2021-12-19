@@ -25,19 +25,6 @@ public class Patient extends User {
     }
 
     
-
-    
-    
-    
-
-   
-
-    
-    
-    
-    
-    
-    
     public String getAntecedents() {
         return antecedents;
     }

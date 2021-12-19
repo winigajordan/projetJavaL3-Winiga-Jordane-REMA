@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="views.AdminController">
+   <children>
+      <AnchorPane prefHeight="113.0" prefWidth="600.0" style="-fx-background-color: #D9DEF6;">
+         <children>
+            <ImageView fitHeight="93.0" fitWidth="103.0" layoutX="22.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/user.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="txtNom" layoutX="137.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Text fx:id="txtNci" layoutX="137.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NCI">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="137.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Button layoutX="491.0" layoutY="44.0" mnemonicParsing="false" onMouseClicked="#handleLogout" text="Deconnexion" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="2.0" layoutY="115.0" prefHeight="229.0" prefWidth="596.0" style="-fx-background-color: #D9DEF6;">
+         <children>
+            <Text layoutX="73.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom complet">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="73.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NCI">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="73.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rôle">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="73.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="73.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font name="Bell MT" size="17.0" />
+               </font>
+            </Text>
+            <Button fx:id="btnAdd" layoutX="445.0" layoutY="192.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Ajouter " />
+            <Button fx:id="btnDel" layoutX="104.0" layoutY="192.0" mnemonicParsing="false" text="Supprimer" />
+            <TextField fx:id="lblNci" layoutX="236.0" layoutY="37.0" promptText="NCI" />
+            <TextField fx:id="lblNomComplet" layoutX="236.0" layoutY="64.0" promptText="Nom complet" />
+            <TextField fx:id="lblLogin" layoutX="236.0" layoutY="120.0" promptText="Login" />
+            <ComboBox layoutX="236.0" layoutY="91.0" prefWidth="150.0" promptText="Liste des rôles" />
+            <ComboBox layoutX="401.0" layoutY="91.0" prefWidth="150.0" promptText="Specialités" />
+            <Text layoutX="226.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gerer les comptes">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font>
+            </Text>
+            <PasswordField fx:id="lblPassword" layoutX="237.0" layoutY="151.0" promptText="Password" />
+            <Button fx:id="bntReset" layoutX="219.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#handleReset" text="Remplir le formulaire pour ajout" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="2.0" layoutY="346.0" prefHeight="269.0" prefWidth="596.0" style="-fx-background-color: #D9DEF6;">
+         <children>
+            <Text layoutX="227.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des comptes">
+               <font>
+                  <Font name="Bell MT" size="20.0" />
+               </font>
+            </Text>
+            <TableView fx:id="tblvComptes" layoutX="63.0" layoutY="47.0" onMouseClicked="#handleLoadUserInformations" prefHeight="200.0" prefWidth="480.0">
+              <columns>
+                <TableColumn fx:id="tblcNci" prefWidth="126.0" style="-fx-alignment: CENTER;" text="NCI" />
+                <TableColumn fx:id="tblcNomComplet" prefWidth="213.0" style="-fx-alignment: CENTER;" text="Nom complet" />
+                  <TableColumn fx:id="tblcRole" prefWidth="141.0" style="-fx-alignment: CENTER;" text="Rôle" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

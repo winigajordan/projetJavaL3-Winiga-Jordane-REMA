@@ -8,6 +8,7 @@ package dao;
 import entities.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ public class UserDao implements IDao <User>{
     
     private final String SQL_LOGIN = "SELECT * FROM user WHERE login = ? AND password = ?";
     private final String SQL_SEARCH_BY_NCI = "SELECT * FROM user WHERE nci = ?";
-    private final String SQL_FIND_ALL_USER = "SELECT * FROM user";
+    private final String SQL_FIND_ALL_USER = "SELECT * FROM user where role NOT IN ( 'ROLE_PATIENT')";
    
     
     private final DataBase database= new DataBase();
@@ -101,12 +102,33 @@ public class UserDao implements IDao <User>{
 
     @Override
     public List<User> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        database.openConnexion();
+        database.initPrepareStatement(SQL_FIND_ALL_USER);
+        List <User> users = new ArrayList();
+        ResultSet rs = database.executeSelect(SQL_FIND_ALL_USER);
+        try {
+            while(rs.next())
+            {
+                User u = new User(
+                        rs.getInt("nci"),
+                        rs.getString("nom_complet"),
+                        rs.getString("login"),
+                        rs.getString("password"),
+                        rs.getString("role")
+                );
+                users.add(u);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        database.closeConnexion();
+        return users;
     }
 
     @Override
     public User findById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
   
 }

@@ -261,5 +261,10 @@ public class Service implements IService{
     public void validatePrestation(int id, String resultat) {
         prestationDao.updateConsultation(id, resultat);
     }
+
+    @Override
+    public List<User> showUsers() {
+        return daoUser.findAll();
+    }
     
 }

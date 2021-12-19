@@ -100,6 +100,10 @@ public class ConnexionPageController implements Initializable {
                 {
                     laodPage("v_acceuil_rp");
                 }
+                if (user.getRole().equals("ADMIN"))
+                {
+                    laodPage("v_admin");
+                }
             }
         }
     }

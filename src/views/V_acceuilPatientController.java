@@ -41,11 +41,7 @@ public class V_acceuilPatientController implements Initializable {
     @FXML
     private Button btnPrestation;
 
-    private static V_acceuilPatientController ctrl;
-
-    public static V_acceuilPatientController getCtrl() {
-        return ctrl;
-    }
+    
     @FXML
     private Text txtDeconnexion;
     
