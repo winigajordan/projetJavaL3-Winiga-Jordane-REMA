@@ -9,6 +9,22 @@ package entities;
  *
  * @author user
  */
-public class Rp {
+public class Rp extends User {
+    private  String role = "ROLE_RP";
     
+    public Rp( int nci, String nomComplet, String login, String password) {
+        super(nci, nomComplet, login, password);
+        this.role = role;
+    }
+    
+    
+    @Override
+    public String getRole() {
+        return role;
+    }
+
+    @Override
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

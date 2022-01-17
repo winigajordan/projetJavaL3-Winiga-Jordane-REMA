@@ -5,6 +5,7 @@
  */
 package services;
 
+import dao.AdminDao;
 import dao.ConstantesDao;
 import dao.ConsultationDao;
 import dao.MedecinDao;
@@ -14,12 +15,15 @@ import dao.OrdonnanceDao;
 import dao.PatientDao;
 import dao.PrestationDao;
 import dao.RdvDao;
+import dao.RpDao;
+import dao.SecretaireDao;
 import dao.SpecialiteDao;
 import dao.UserDao;
 import dao.TypePrestationDao;
 import dto.ConsultationDto;
 import dto.PrestationDto;
 import dto.RdvDto;
+import entities.Admin;
 import entities.Constantes;
 import entities.Consultation;
 import entities.Medecin;
@@ -29,6 +33,8 @@ import entities.Ordonnance;
 import entities.Patient;
 import entities.Prestation;
 import entities.Rdv;
+import entities.Rp;
+import entities.Secretaire;
 import entities.Specialite;
 import entities.TypePrestation;
 import entities.User;
@@ -56,6 +62,9 @@ public class Service implements IService{
     MedicamentDao medicamentDao = new MedicamentDao();
     OrdMedDao ordMedDao = new OrdMedDao();
     OrdonnanceDao ordonnanceDao = new OrdonnanceDao();
+    SecretaireDao secretaireDao  = new SecretaireDao();
+    RpDao rpDao = new RpDao();
+    AdminDao adminDao = new AdminDao();
 
     @Override
     public User login(String login, String password) {
@@ -266,5 +275,28 @@ public class Service implements IService{
     public List<User> showUsers() {
         return daoUser.findAll();
     }
+
+    @Override
+    public int addMed(Medecin med) {
+        return medecinDao.insert(med);
+    }
+
+    @Override
+    public int addSecretaire(Secretaire sc) {
+        return secretaireDao.insert(sc);
+    }
+    
+    @Override
+    public int addRp(Rp rp){
+        return rpDao.insert(rp);
+    }
+    
+    @Override
+    public int addAdmin(Admin admin){
+        return adminDao.insert(admin);
+    }
+    
+
+    
     
 }

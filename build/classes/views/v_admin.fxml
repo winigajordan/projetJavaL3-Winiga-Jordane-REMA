@@ -12,8 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="views.AdminController">
+<AnchorPane id="AnchorPane" prefHeight="617.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.AdminController">
    <children>
       <AnchorPane prefHeight="113.0" prefWidth="600.0" style="-fx-background-color: #D9DEF6;">
          <children>
@@ -67,13 +66,13 @@
                   <Font name="Bell MT" size="17.0" />
                </font>
             </Text>
-            <Button fx:id="btnAdd" layoutX="445.0" layoutY="192.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Ajouter " />
-            <Button fx:id="btnDel" layoutX="104.0" layoutY="192.0" mnemonicParsing="false" text="Supprimer" />
+            <Button fx:id="btnAdd" layoutX="445.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#dandleAddAccount" prefHeight="25.0" prefWidth="72.0" text="Ajouter " />
+            <Button fx:id="btnDel" layoutX="104.0" layoutY="192.0" mnemonicParsing="false" onMouseClicked="#handleDeleteUser" text="Supprimer" />
             <TextField fx:id="lblNci" layoutX="236.0" layoutY="37.0" promptText="NCI" />
             <TextField fx:id="lblNomComplet" layoutX="236.0" layoutY="64.0" promptText="Nom complet" />
             <TextField fx:id="lblLogin" layoutX="236.0" layoutY="120.0" promptText="Login" />
-            <ComboBox layoutX="236.0" layoutY="91.0" prefWidth="150.0" promptText="Liste des rôles" />
-            <ComboBox layoutX="401.0" layoutY="91.0" prefWidth="150.0" promptText="Specialités" />
+            <ComboBox fx:id="cboRole" layoutX="236.0" layoutY="91.0" onAction="#handleGetRole" prefWidth="150.0" promptText="Liste des rôles" />
+            <ComboBox fx:id="cboSpecialite" layoutX="401.0" layoutY="91.0" prefWidth="150.0" promptText="Specialités" />
             <Text layoutX="226.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gerer les comptes">
                <font>
                   <Font name="Bell MT" size="20.0" />

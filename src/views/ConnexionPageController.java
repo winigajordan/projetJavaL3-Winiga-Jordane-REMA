@@ -92,7 +92,7 @@ public class ConnexionPageController implements Initializable {
                 {
                     laodPage("v_medecin_acceuil");
                 }
-                if (user.getRole().equals("ROLE_SECREATAIRE"))
+                if (user.getRole().equals("ROLE_SECRETAIRE"))
                 {
                     laodPage("v_acceuil_secretaire");
                 }

@@ -110,6 +110,7 @@ public class UserDao implements IDao <User>{
             while(rs.next())
             {
                 User u = new User(
+                        rs.getInt("id"),
                         rs.getInt("nci"),
                         rs.getString("nom_complet"),
                         rs.getString("login"),

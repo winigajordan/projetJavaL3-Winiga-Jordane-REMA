@@ -12,11 +12,12 @@ package entities;
 public class Medecin extends User{
     
     private int specialite_id;
-    private String ROLE = "ROLE_MEDECIN";
+    private String role = "ROLE_MEDECIN";
 
     public Medecin( int nci, String nomComplet, String login, String password, int specialite_id) {
         super(nci, nomComplet, login, password);
         this.specialite_id = specialite_id;
+        this.role = role;
     }
 
     
@@ -33,12 +34,14 @@ public class Medecin extends User{
         this.specialite_id = specialite_id;
     }
 
-    public String getROLE() {
-        return ROLE;
+    @Override
+    public String getRole() {
+        return role;
     }
 
-    public void setROLE(String ROLE) {
-        this.ROLE = ROLE;
+    @Override
+    public void setRole(String role) {
+        this.role = role;
     }
     
     

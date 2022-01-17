@@ -419,6 +419,8 @@ public class MedecinConsultationController implements Initializable {
                             int idOrdMedGenere = service.insertOrdMedList(ordmed);
                             //3 - mise à jour du statut de la consultation et insertion de l'id des constantes
                             service.saveConsultation(c.getId(), 0, idConstanteGenere );
+                            loddTableView(service.showConsultationToMedecin(user.getNci()));
+                            btnValidation.setVisible(false);
                             
                         }
                         

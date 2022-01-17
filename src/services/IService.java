@@ -8,6 +8,7 @@ package services;
 import dto.ConsultationDto;
 import dto.PrestationDto;
 import dto.RdvDto;
+import entities.Admin;
 import entities.Constantes;
 import entities.Consultation;
 import entities.Medecin;
@@ -16,6 +17,8 @@ import entities.OrdMed;
 import entities.Ordonnance;
 import entities.Prestation;
 import entities.Rdv;
+import entities.Rp;
+import entities.Secretaire;
 import entities.Specialite;
 import entities.TypePrestation;
 import entities.User;
@@ -74,7 +77,10 @@ public interface IService {
      
      //Admin
      public List<User> showUsers();
-     
+     public int addMed(Medecin med);
+     public int addSecretaire (Secretaire sc);
+     public int addRp(Rp rp);
+     public int addAdmin(Admin admin);
      
      
     
