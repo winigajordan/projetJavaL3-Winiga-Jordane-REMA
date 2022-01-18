@@ -13,4 +13,4 @@ tableau des prestations (Date, Etat, TypePrestation, details(Resultat))
 5- creer une vue pour afficher les détails d'une consultation (utilisable par le patient pour afficher les détails des consultations)
 a-- charger les constantes
 b-- charger les medicaments
-c-- ??? generer un code en cas de prescription de prestation
+c-- ??? generer un code en cas de prescription de prestation 

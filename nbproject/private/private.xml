@@ -4,16 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/ConnexionPageController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/ResponsablePrestationController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/services/Service.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/V_acceuilPatientController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/AdminController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/dao/UserDao.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Prestation.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/dto/PrestationDto.java</file>
             <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/MedecinConsultationController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Medicament.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/MedecinAcceuilController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/dto/MedicamentDto.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/User.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/dao/PrestationDao.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/DossierMedicalController.java</file>
         </group>
     </open-files>
 </project-private>

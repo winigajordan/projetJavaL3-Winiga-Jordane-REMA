@@ -154,13 +154,16 @@ public class AdminController implements Initializable {
 
     @FXML
     private void handleReset(MouseEvent event) {
+        clearFields();    
+    }
+    
+    public void clearFields(){
         btnAdd.setVisible(true);
         btnDel.setVisible(false);
         lblNci.clear();
         lblNomComplet.clear();
         lblLogin.clear();
         lblPassword.clear();
-                
     }
     
     public void laodCboRole(){
@@ -278,6 +281,7 @@ public class AdminController implements Initializable {
                         }
                         
                         loadTableView(service.showUsers());
+                        clearFields();
                     } 
                      
                 }

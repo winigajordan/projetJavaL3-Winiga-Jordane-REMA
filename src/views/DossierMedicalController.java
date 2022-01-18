@@ -5,6 +5,7 @@
  */
 package views;
 
+import dto.ConsultationDto;
 import dto.PrestationDto;
 import entities.Patient;
 import entities.User;
@@ -124,6 +125,17 @@ public class DossierMedicalController implements Initializable {
         showAlert(prestation.getResultat(), "Resultat de la prestation");
     }
 
+   public void laodTblvConsultation(){
+       Patient patient = tblvUser.getSelectionModel().getSelectedItem();
+        if (patient == null){
+            showAlert("Veuillez selectionner un patient pour afficher son dossier médical", "Info");
+        }
+        else
+        {
+            List <ConsultationDto> consultations = service.showConsultationToPatient(patient.getNci());
+            
+        }
    
+   }
     
 }
