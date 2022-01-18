@@ -24,6 +24,13 @@ public class Patient extends User {
         this.role = ROLE;
     }
 
+    public Patient(int id, int nci, String nomComplet, String login, String password, String role, String antecedents ) {
+        super(id, nci, nomComplet, login, password, role);
+        this.antecedents = antecedents;
+    }
+    
+    
+
     
     public String getAntecedents() {
         return antecedents;

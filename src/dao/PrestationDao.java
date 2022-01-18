@@ -107,7 +107,7 @@ public class PrestationDao implements IDao <Prestation>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-     public List<PrestationDto> findByNci(int patient_nci)
+     public List<PrestationDto> findByNci(int patientNci)
     {
         
        
@@ -115,7 +115,7 @@ public class PrestationDao implements IDao <Prestation>{
            dataBase.openConnexion();
            dataBase.initPrepareStatement(SQL_FIND_BY_NCI);
            try {
-           dataBase.getPs().setInt(1, patient_nci);
+           dataBase.getPs().setInt(1, patientNci);
            ResultSet rs = dataBase.executeSelect(SQL_FIND_BY_NCI);
            while (rs.next()){
                PrestationDto prestation = new PrestationDto(

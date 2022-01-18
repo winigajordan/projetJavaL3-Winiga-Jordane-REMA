@@ -295,7 +295,10 @@ public class AdminController implements Initializable {
         }
         else
         {
-            showAlert(String.valueOf(user.getId()));
+           // showAlert(String.valueOf(user.getId()));
+            service.deleteUser(user.getId());
+            loadTableView(service.showUsers());
+            
         }
         
     }

@@ -8,6 +8,7 @@ package dao;
 import entities.Patient;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,8 +19,10 @@ import java.util.logging.Logger;
  */
 public class PatientDao implements IDao <Patient> {
     
-     private final String SQL_CREATE_ACCOUNT = "INSERT INTO user (nci, nom_complet, login, password, role, antecedents) VALUES (?,?,?,?,?,?)";
      private DataBase dataBase = new DataBase();
+     private final String SQL_CREATE_ACCOUNT = "INSERT INTO user (nci, nom_complet, login, password, role, antecedents) VALUES (?,?,?,?,?,?)";
+     private final String SQL_FIND_ALL = "SELECT * FROM user WHERE role = 'ROLE_PATIENT'";
+
 
     @Override
     public int insert(Patient patient) {
@@ -66,7 +69,28 @@ public class PatientDao implements IDao <Patient> {
 
     @Override
     public List<Patient> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+           List <Patient> patients = new ArrayList();
+           dataBase.openConnexion();
+           dataBase.initPrepareStatement(SQL_FIND_ALL);
+           ResultSet rs = dataBase.executeSelect(SQL_FIND_ALL);
+         try {
+             while(rs.next()){
+             Patient p = new Patient(
+                     rs.getInt("id"),
+                     rs.getInt("nci"),
+                     rs.getString("nom_complet"),
+                     rs.getString("login"),
+                     rs.getString("password"),
+                     rs.getString("role"),
+                     rs.getString("antecedents")
+             );
+             patients.add(p);
+             }
+         } catch (SQLException ex) {
+             Logger.getLogger(PatientDao.class.getName()).log(Level.SEVERE, null, ex);
+         }
+           dataBase.closeConnexion();
+           return patients;
     }
 
     @Override

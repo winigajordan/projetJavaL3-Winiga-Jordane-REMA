@@ -296,6 +296,15 @@ public class Service implements IService{
         return adminDao.insert(admin);
     }
     
+    @Override
+    public int deleteUser(int id){
+        return daoUser.delete(id);
+    }
+
+    @Override
+    public List<Patient> findAllPatiens() {
+        return daoPatient.findAll();
+    }
 
     
     

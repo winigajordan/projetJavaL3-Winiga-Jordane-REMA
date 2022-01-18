@@ -53,10 +53,22 @@ public class MedecinAcceuilController implements Initializable {
 
     @FXML
     private void handleConsultationPage(MouseEvent event) {
+        try {
+            // TODO
+            loadView("v_medecin_consultation");
+        } catch (IOException ex) {
+            Logger.getLogger(MedecinAcceuilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void handleDossierMedicalPage(MouseEvent event) {
+        try {
+            // TODO
+            loadView("v_dossier_medical");
+        } catch (IOException ex) {
+            Logger.getLogger(MedecinAcceuilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

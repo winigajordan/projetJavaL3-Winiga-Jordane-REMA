@@ -1,0 +1,16 @@
+tableau des patient (NCI, NomComplet, Antécédants)
+
+tableau des consultations (Date, Etat, TypeConsultation, Detail(constantes, liste des médicaments))
+tableau des prestations (Date, Etat, TypePrestation, details(Resultat))
+
+#afficher le boutton details si l'état est "fait"
+
+1- charger la liste des utilisateurs
+2- charger la liste des prestations par utilisateurs
+3- afficher les détails de prestation avec une alert
+
+4- charger la liste des consultations par utilisateurs 
+5- creer une vue pour afficher les détails d'une consultation (utilisable par le patient pour afficher les détails des consultations)
+a-- charger les constantes
+b-- charger les medicaments
+c-- ??? generer un code en cas de prescription de prestation

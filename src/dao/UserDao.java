@@ -22,6 +22,7 @@ public class UserDao implements IDao <User>{
     private final String SQL_LOGIN = "SELECT * FROM user WHERE login = ? AND password = ?";
     private final String SQL_SEARCH_BY_NCI = "SELECT * FROM user WHERE nci = ?";
     private final String SQL_FIND_ALL_USER = "SELECT * FROM user where role NOT IN ( 'ROLE_PATIENT')";
+    private final String SQL_DELETE = "DELETE FROM user  WHERE id = ?";
    
     
     private final DataBase database= new DataBase();
@@ -97,7 +98,21 @@ public class UserDao implements IDao <User>{
 
     @Override
     public int delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int idDel = 0;
+        database.openConnexion();
+        database.initPrepareStatement(SQL_DELETE);
+        try {
+            database.getPs().setInt(1, id);
+            database.executeUpdate(SQL_DELETE);
+            ResultSet rs = database.getPs().getGeneratedKeys();
+            if(rs.next()){
+                idDel = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        database.closeConnexion();
+        return idDel;
     }
 
     @Override

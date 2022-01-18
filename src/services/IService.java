@@ -15,6 +15,7 @@ import entities.Medecin;
 import entities.Medicament;
 import entities.OrdMed;
 import entities.Ordonnance;
+import entities.Patient;
 import entities.Prestation;
 import entities.Rdv;
 import entities.Rp;
@@ -64,6 +65,7 @@ public interface IService {
      public List<Medicament> findAllMedocs();
      public int createOrdonance(Ordonnance ord);
      public int insertOrdMedList(OrdMed ord);
+     public List <Patient> findAllPatiens();
      
      
      
@@ -81,6 +83,7 @@ public interface IService {
      public int addSecretaire (Secretaire sc);
      public int addRp(Rp rp);
      public int addAdmin(Admin admin);
+     public int deleteUser(int id);
      
      
     
