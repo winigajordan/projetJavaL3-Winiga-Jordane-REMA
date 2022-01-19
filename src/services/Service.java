@@ -21,6 +21,7 @@ import dao.SpecialiteDao;
 import dao.UserDao;
 import dao.TypePrestationDao;
 import dto.ConsultationDto;
+import dto.OrdonnanceDto;
 import dto.PrestationDto;
 import dto.RdvDto;
 import entities.Admin;
@@ -304,6 +305,16 @@ public class Service implements IService{
     @Override
     public List<Patient> findAllPatiens() {
         return daoPatient.findAll();
+    }
+
+    @Override
+    public Constantes getConstante(int id) {
+        return constantesDao.findById(id);
+    }
+
+    @Override
+    public List<OrdonnanceDto> getOrdonnance(int consultationId) {
+        return ordonnanceDao.selectConsultationDetails(consultationId);
     }
 
     

@@ -21,7 +21,7 @@ public class ConstantesDao implements IDao<Constantes>{
     DataBase database = new DataBase();
     
     private final String SQL_INSERT = "insert into constantes (temperature,poids,tension,id_consultation) values (?,?,?,?)";
-    
+    private final String SQL_SELECT_BY_ID = "SELECT * FROM constantes WHERE id = ? ";
     
     @Override
     public int insert(Constantes c) {
@@ -46,7 +46,7 @@ public class ConstantesDao implements IDao<Constantes>{
         database.closeConnexion();
         return idGenere;
     }
-
+    
     @Override
     public int update(Constantes ogj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -64,8 +64,27 @@ public class ConstantesDao implements IDao<Constantes>{
 
     @Override
     public Constantes findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+Constantes c = null ;
+        database.openConnexion();
+        database.initPrepareStatement(SQL_SELECT_BY_ID);
+        try {
+            database.getPs().setInt(1, id);
+            ResultSet rs = database.executeSelect(SQL_SELECT_BY_ID);
+            if(rs.next()){
+                c = new Constantes (
+                        rs.getInt("id"),
+                        rs.getInt("temperature"),
+                        rs.getInt("poids"),
+                        rs.getInt("tension"),
+                        rs.getInt("temperature")
+                );
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConstantesDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        database.closeConnexion();
+        return c;    }
     
     
 }

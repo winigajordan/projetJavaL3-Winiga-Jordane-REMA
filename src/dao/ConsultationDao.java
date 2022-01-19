@@ -27,7 +27,7 @@ public class ConsultationDao implements IDao <Consultation>{
     private final String SQL_SELECT_BY_NCI_MEDECIN = "SELECT * FROM consultation WHERE medecin_nci = ?";
     private final String SQL_CHANGE_STATUT = "UPDATE consultation SET statut = 'Annule' WHERE id=?";
     private final String SQL_CHANGE_STATUT_TO_DONE = "UPDATE consultation SET statut = 'Fait', constantes_id =?, prestation_id = ? WHERE id=?";
-    //private final String SQL_INSERT_CONSTANTE_ID = "";
+    
     
     
     public List <ConsultationDto> findByNci(int nci_patient) 

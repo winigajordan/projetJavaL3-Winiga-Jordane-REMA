@@ -14,3 +14,8 @@ tableau des prestations (Date, Etat, TypePrestation, details(Resultat))
 a-- charger les constantes
 b-- charger les medicaments
 c-- ??? generer un code en cas de prescription de prestation 
+
+
+requetes pour avoir l'ordonnance
+
+select ord.posologie, m.code, m.nom FROM ordonnance as o, ord_med as ord, medicament as m WHERE o.consultation_id = 7 AND ord.id_odonnance = o.id AND ord.id_med=m.id;

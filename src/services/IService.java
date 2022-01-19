@@ -6,6 +6,7 @@
 package services;
 
 import dto.ConsultationDto;
+import dto.OrdonnanceDto;
 import dto.PrestationDto;
 import dto.RdvDto;
 import entities.Admin;
@@ -66,6 +67,8 @@ public interface IService {
      public int createOrdonance(Ordonnance ord);
      public int insertOrdMedList(OrdMed ord);
      public List <Patient> findAllPatiens();
+     public Constantes getConstante(int id);
+     public List <OrdonnanceDto> getOrdonnance(int consultationId);
      
      
      
