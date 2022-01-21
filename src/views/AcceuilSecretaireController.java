@@ -42,11 +42,11 @@ import services.Service;
  *
  * @author user
  */
-public class Acceuil_secretaireController implements Initializable {
+public class AcceuilSecretaireController implements Initializable {
 
     Service service = new Service();
     private ObservableList<Medecin> obm;
-    private static Acceuil_secretaireController ctrl;
+    private static AcceuilSecretaireController ctrl;
     
     
     //Textes

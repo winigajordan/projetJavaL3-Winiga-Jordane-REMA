@@ -34,7 +34,7 @@ import services.Service;
  *
  * @author user
  */
-public class V_consultation_patientController implements Initializable {
+public class ConsultationPatientController implements Initializable {
 
     @FXML
     private TableColumn<ConsultationDto, Date> tblcDate;
@@ -51,7 +51,7 @@ public class V_consultation_patientController implements Initializable {
     
     Service service =  new Service();
     private ConsultationDto consultation = null;
-    private static V_consultation_patientController ctrl = null;
+    private static ConsultationPatientController ctrl = null;
 
     /**
      * Initializes the controller class.
@@ -126,12 +126,12 @@ public class V_consultation_patientController implements Initializable {
         this.consultation = consultation;
     }
 
-    public static V_consultation_patientController getCtrl() {
+    public static ConsultationPatientController getCtrl() {
         return ctrl;
     }
 
-    public static void setCtrl(V_consultation_patientController ctrl) {
-        V_consultation_patientController.ctrl = ctrl;
+    public static void setCtrl(ConsultationPatientController ctrl) {
+        ConsultationPatientController.ctrl = ctrl;
     }
     
     public void setNullController(){

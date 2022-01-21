@@ -28,7 +28,7 @@ import javafx.stage.Stage;
  *
  * @author user
  */
-public class V_acceuilPatientController implements Initializable {
+public class AcceuilPatientController implements Initializable {
 
     @FXML
     private Text userName;
@@ -41,7 +41,7 @@ public class V_acceuilPatientController implements Initializable {
     @FXML
     private Button btnPrestation;
 
-    V_consultation_patientController ctrl = new V_consultation_patientController();
+    ConsultationPatientController ctrl = new ConsultationPatientController();
     @FXML
     private Text txtDeconnexion;
     
@@ -58,7 +58,7 @@ public class V_acceuilPatientController implements Initializable {
             //btnRdv.setStyle("-fx-background-color :  #5DCD93");
             // TODO
         } catch (IOException ex) {
-            Logger.getLogger(V_acceuilPatientController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AcceuilPatientController.class.getName()).log(Level.SEVERE, null, ex);
         }
         userName.setText(String.valueOf(ConnexionPageController.getCtrl().getUser().getNomComplet()));
     }    

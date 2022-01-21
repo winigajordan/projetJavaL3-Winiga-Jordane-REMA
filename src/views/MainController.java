@@ -22,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author user
  */
-public class V_mainController implements Initializable {
+public class MainController implements Initializable {
 
     @FXML
     private Button btnCreation;
@@ -44,13 +44,11 @@ public class V_mainController implements Initializable {
         // TODO
         btnConnexion.setVisible(false);
         try {
-            loadView( "v_ConnexionPage");
+            loadView( "v_connexion_page");
             
             
             // TODO
-        } catch (IOException ex) {
-            Logger.getLogger(V_connexionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (IOException ex) {        }
     }    
 
     public void loadView(String view) throws IOException{
@@ -64,15 +62,14 @@ public class V_mainController implements Initializable {
     private void handleConnexionPage(MouseEvent event) throws IOException {
         btnCreation.setVisible(true);
         btnConnexion.setVisible(false);
-        loadView("v_ConnexionPage");
+        loadView("v_connexion_page");
     }
 
     @FXML
     private void handleAccountCreationPage(MouseEvent event) throws IOException {
-        System.out.println("OOKK");
         btnCreation.setVisible(false);
         btnConnexion.setVisible(true);
-        loadView( "v_accountCreation");
+        loadView( "v_account_creation");
         
     }
 

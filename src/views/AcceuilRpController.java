@@ -45,7 +45,7 @@ public class AcceuilRpController implements Initializable {
         txtNciRp.setText(String.valueOf(ConnexionPageController.getCtrl().getUser().getNci()));
         try {
             // TODO
-            loadView("v_responsable_prestation");
+            loadView("v_rp_prestations");
         } catch (IOException ex) {
             Logger.getLogger(AcceuilRpController.class.getName()).log(Level.SEVERE, null, ex);
         }

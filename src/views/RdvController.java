@@ -42,9 +42,9 @@ import services.Service;
  *
  * @author user
  */
-public class V_rdvController implements Initializable {
+public class RdvController implements Initializable {
 
-    private static V_rdvController ctrl;
+    private static RdvController ctrl;
     
     
     
@@ -262,7 +262,7 @@ public class V_rdvController implements Initializable {
 
        
       
-    public static V_rdvController getCtrl() {
+    public static RdvController getCtrl() {
         return ctrl;
     }
        

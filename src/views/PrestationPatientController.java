@@ -24,9 +24,9 @@ import services.Service;
  *
  * @author user
  */
-public class V_prestation_patientController implements Initializable {
+public class PrestationPatientController implements Initializable {
     
-    private V_prestation_patientController ctrl;
+    private PrestationPatientController ctrl;
    
 
     @FXML

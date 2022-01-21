@@ -43,7 +43,7 @@ public class DetailsConsultationController implements Initializable {
     private TextField txtTension;
     
     
-    //ConsultationDto patientConsultation = V_consultation_patientController.getCtrl().getConsultation();
+    //ConsultationDto patientConsultation = ConsultationPatientController.getCtrl().getConsultation();
     //ConsultationDto consultationDossier = DossierMedicalController.getCtrl().getConsultation();
     //DossierMedicalController x = DossierMedicalController.getCtrl();
     ConsultationDto consultation = null;
@@ -66,8 +66,8 @@ public class DetailsConsultationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        if (V_consultation_patientController.getCtrl() != null){
-            consultation = V_consultation_patientController.getCtrl().getConsultation();
+        if (ConsultationPatientController.getCtrl() != null){
+            consultation = ConsultationPatientController.getCtrl().getConsultation();
         }
         if (DossierMedicalController.getCtrl() != null){
             consultation = DossierMedicalController.getCtrl().getConsultation();
@@ -75,7 +75,7 @@ public class DetailsConsultationController implements Initializable {
         }
         
         c = service.getConstante(consultation.getId());
-        //V_consultation_patientController a = V_consultation_patientController.getCtrl();
+        //V_consultation_patientController a = ConsultationPatientController.getCtrl();
         
         
         laodFielConstantes();
@@ -118,11 +118,16 @@ public class DetailsConsultationController implements Initializable {
         else
         {
             PrestationDto prestation = service.getPrestationByConsultation(consultation.getPrestationId());
-            message = "Date : " + String.valueOf(prestation.getDate()) + '\n'
+            if (prestation == null){
+                message = "Rdv pour pas encore validé";
+            } else {
+                message = "Date : " + String.valueOf(prestation.getDate()) + '\n'
                        + "Type de prestation : " + prestation.getPrestation() + '\n'
                        + "Statut : " + prestation.getStatut() + '\n'
                        + "Resultat : " + prestation.getResultat()
                        ;
+            }
+            
         }
        
         showAlert(message, "Detail prestation prescrite");

@@ -30,7 +30,7 @@ import services.Service;
  *
  * @author user
  */
-public class V_accountCreationController implements Initializable {
+public class AccountCreationController implements Initializable {
 
     @FXML
     private TextField txtNci;
