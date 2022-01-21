@@ -39,7 +39,9 @@ import services.Service;
 public class DossierMedicalController implements Initializable {
 
     Service service = new Service ();
-    private static DossierMedicalController ctrl;
+    
+    
+    private static DossierMedicalController ctrl = null;
     private ConsultationDto consultation;
 
     public ConsultationDto getConsultation() {
@@ -180,11 +182,12 @@ public class DossierMedicalController implements Initializable {
    
     @FXML
     private void handleSetVisibleBtnDetails(MouseEvent event) {
-        consultation = tblvConsultation.getSelectionModel().getSelectedItem();
-        if(consultation == null){
+        
+        if(tblvConsultation.getSelectionModel().getSelectedItem() == null){
             showAlert("Veuillez sélectionner une consultation puis cliquez sur Resultat pour afficher les resultats", "Info");
         }
         else{
+            consultation = tblvConsultation.getSelectionModel().getSelectedItem();
             if (consultation.getEtat().equals("Fait")){
                 btnDetailConsultation.setVisible(true);
             }else{
@@ -222,6 +225,8 @@ public class DossierMedicalController implements Initializable {
         DossierMedicalController.ctrl = ctrl;
     }
 
-   
+   public void setNullController(){
+        ctrl = null;
+    }
    
 }

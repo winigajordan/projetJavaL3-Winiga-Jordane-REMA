@@ -317,6 +317,17 @@ public class Service implements IService{
         return ordonnanceDao.selectConsultationDetails(consultationId);
     }
 
+    @Override
+    public PrestationDto getPrestationByConsultation(int rdvId) {
+        return prestationDao.findPrestationConsultation(rdvId);
+    }
+
+    
+
     
     
 }
+
+
+/*
+*/

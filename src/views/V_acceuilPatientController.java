@@ -41,7 +41,7 @@ public class V_acceuilPatientController implements Initializable {
     @FXML
     private Button btnPrestation;
 
-    
+    V_consultation_patientController ctrl = new V_consultation_patientController();
     @FXML
     private Text txtDeconnexion;
     
@@ -95,6 +95,7 @@ public class V_acceuilPatientController implements Initializable {
         try
         {
             Stage stage = (Stage) txtDeconnexion.getScene().getWindow();
+            ctrl.setNullController();
             stage.hide();
             root = FXMLLoader.load(getClass().getResource("/views/v_main.fxml"));
             Scene scene = new Scene(root);

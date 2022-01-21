@@ -35,6 +35,8 @@ public class MedecinAcceuilController implements Initializable {
     private Text txtNci;
     @FXML
     private Text txtNomComplet;
+    DossierMedicalController ctrl = new DossierMedicalController();
+    
 
     /**
      * Initializes the controller class.
@@ -77,18 +79,21 @@ public class MedecinAcceuilController implements Initializable {
         try
         {
             Stage stage = (Stage) btnDeconnexion.getScene().getWindow();
+             
             stage.hide();
             root = FXMLLoader.load(getClass().getResource("/views/v_main.fxml"));
             Scene scene = new Scene(root);
             Stage stage1 =  new Stage();
             stage1.setScene(scene);
             stage1.show();
+            ctrl.setNullController();
                     
         }
         catch(Exception ex)
         {
             System.out.println(ex);
         }
+            
     }
     
     public void loadView(String view) throws IOException{
@@ -97,5 +102,7 @@ public class MedecinAcceuilController implements Initializable {
         anchorContent.getChildren().clear();
         anchorContent.getChildren().add(root);
     }
+    
+    
     
 }

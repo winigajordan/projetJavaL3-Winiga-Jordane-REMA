@@ -78,6 +78,7 @@ public interface IService {
      public List <PrestationDto> showPrestationToRpByDate(java.sql.Date date);
      public void annulationPrestation(int id);
      public void validatePrestation(int id, String resultat);
+     public PrestationDto getPrestationByConsultation(int rdvId);
      
      
      //Admin

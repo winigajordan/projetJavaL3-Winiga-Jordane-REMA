@@ -7,6 +7,7 @@ package views;
 
 import dto.ConsultationDto;
 import dto.OrdonnanceDto;
+import dto.PrestationDto;
 import entities.Constantes;
 import java.net.URL;
 import java.util.List;
@@ -15,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,9 +42,13 @@ public class DetailsConsultationController implements Initializable {
     @FXML
     private TextField txtTension;
     
-    ConsultationDto consultation = DossierMedicalController.getCtrl().getConsultation();
+    
+    //ConsultationDto patientConsultation = V_consultation_patientController.getCtrl().getConsultation();
+    //ConsultationDto consultationDossier = DossierMedicalController.getCtrl().getConsultation();
+    //DossierMedicalController x = DossierMedicalController.getCtrl();
+    ConsultationDto consultation = null;
     Service service = new Service();
-    Constantes c = service.getConstante(consultation.getId());
+    Constantes c =  null;
     @FXML
     private TableView<OrdonnanceDto> tblvOrdonnance;
     @FXML
@@ -60,8 +66,21 @@ public class DetailsConsultationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        if (V_consultation_patientController.getCtrl() != null){
+            consultation = V_consultation_patientController.getCtrl().getConsultation();
+        }
+        if (DossierMedicalController.getCtrl() != null){
+            consultation = DossierMedicalController.getCtrl().getConsultation();
+            
+        }
+        
+        c = service.getConstante(consultation.getId());
+        //V_consultation_patientController a = V_consultation_patientController.getCtrl();
+        
+        
         laodFielConstantes();
         laodOrdonnance();
+        System.out.println(consultation.getId());
     }    
     
     
@@ -80,17 +99,34 @@ public class DetailsConsultationController implements Initializable {
             tblvOrdonnance.setItems(obOrdonnance);
     }
 
+    public void showAlert( String message, String x){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Dossier médical");
+        alert.setHeaderText(x);
+        alert.setContentText(message);
+        alert.show();
+    }
+    
     @FXML
     private void handleShowPrestation(MouseEvent event) {
+        String message = "";
+        
+        if (consultation.getPrestationId() == 0){
+            message = "Aucune prestation prescrite lors de cette consultation";
+        }
+        
+        else
+        {
+            PrestationDto prestation = service.getPrestationByConsultation(consultation.getPrestationId());
+            message = "Date : " + String.valueOf(prestation.getDate()) + '\n'
+                       + "Type de prestation : " + prestation.getPrestation() + '\n'
+                       + "Statut : " + prestation.getStatut() + '\n'
+                       + "Resultat : " + prestation.getResultat()
+                       ;
+        }
+       
+        showAlert(message, "Detail prestation prescrite");
         
     }
     
 }
-
-/*
-
-textOrdonnance.setText("Code : " + String.valueOf(ord.getCode()) + '\t' +
-                                   "Nom : " + String.valueOf(ord.getNom()) + '\t' + 
-                                   "Posologie : " + String.valueOf(ord.getPosologie()) + '\n' );
-
-*/

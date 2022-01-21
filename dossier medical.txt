@@ -19,3 +19,7 @@ c-- ??? generer un code en cas de prescription de prestation
 requetes pour avoir l'ordonnance
 
 select ord.posologie, m.code, m.nom FROM ordonnance as o, ord_med as ord, medicament as m WHERE o.consultation_id = 7 AND ord.id_odonnance = o.id AND ord.id_med=m.id;
+
+
+select p.date, p.statut, p.resultat, t.libelle_type_prestation from consultation as c, rdv as r, prestation as p, type_prestation as t where c.prestation_id = ? AND c.prestation_id = r.id AND r.id = p.prestation_rdv_id and p.type_prestation_id = t.id;
+

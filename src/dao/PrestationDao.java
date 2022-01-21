@@ -31,7 +31,7 @@ public class PrestationDao implements IDao <Prestation>{
    private final String SQL_FIND_BY_DATE = "select p.id, p.date, p.statut, p.resultat, p.patient_nci, t.libelle_type_prestation from prestation as p, type_prestation as t where p.type_prestation_id = t.id and p.date = ?";
    private final String SQL_UPDATE_PRESTATION = "UPDATE prestation SET statut = 'Annule' WHERE id=?";
    private final String SQL_VALIDATE_PRESTATION = "UPDATE prestation SET statut = 'Faite', resultat = ? WHERE id=?";
-   
+   private final String SQL_PRESTATION_FROM_CONSULTATION = "select p.date, p.statut, p.resultat, t.libelle_type_prestation from consultation as c, rdv as r, prestation as p, type_prestation as t where c.prestation_id = ? AND c.prestation_id = r.id AND r.id = p.prestation_rdv_id and p.type_prestation_id = t.id;";
    
     @Override
     public int insert(Prestation prestation) {
@@ -233,5 +233,37 @@ public class PrestationDao implements IDao <Prestation>{
        }
          dataBase.closeConnexion();
      }
+     
+     
+     
+     
+     public PrestationDto findPrestationConsultation(int rdvId)
+    {
+        
+        PrestationDto prestation = null;
+       
+           List <PrestationDto> prestations = new ArrayList();
+           dataBase.openConnexion();
+           dataBase.initPrepareStatement(SQL_PRESTATION_FROM_CONSULTATION);
+           try {
+           dataBase.getPs().setInt(1, rdvId);
+           ResultSet rs = dataBase.executeSelect(SQL_PRESTATION_FROM_CONSULTATION);
+           if (rs.next()){
+               
+                prestation = new PrestationDto(
+                       //rs.getInt("id"),
+                       rs.getDate("date"),
+                       rs.getString("libelle_type_prestation"),
+                       rs.getString("statut"),
+                       rs.getString("resultat")
+               );
+               
+           }
+       } catch (SQLException ex) {
+           Logger.getLogger(PrestationDao.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       dataBase.closeConnexion();
+       return prestation;
+    }
      
 }

@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/ConnexionPageController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Prestation.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/dto/PrestationDto.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/MedecinConsultationController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/dao/PrestationDao.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/DetailsConsultationController.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/V_consultation_patientController.java</file>
             <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/DossierMedicalController.java</file>
         </group>
     </open-files>

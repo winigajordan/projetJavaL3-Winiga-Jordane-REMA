@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class ConsultationDao implements IDao <Consultation>{
     
     DataBase database = new DataBase();
-    private final String SQL_SELECT_BY_NCI_PATIENT ="SELECT c.id, c.date, s.libelle_specialite, c.statut FROM consultation as c, specialite as s where s.id=c.specialite_id and c.patient_nci = ?";
+    private final String SQL_SELECT_BY_NCI_PATIENT ="SELECT c.id, c.date, s.libelle_specialite, c.statut, c.prestation_id FROM consultation as c, specialite as s where s.id=c.specialite_id and c.patient_nci = ?";
     private final String SQL_INSERT = "INSERT INTO consultation (statut,date,specialite_id,medecin_nci,patient_nci,consultation_rdv_id) VALUES (?,?,?,?,?,?)";
     private final String SQL_FIND_ALL = "SELECT * FROM consultation";
     private final String SQL_SELECT_BY_NCI_MEDECIN = "SELECT * FROM consultation WHERE medecin_nci = ?";
@@ -44,7 +44,8 @@ public class ConsultationDao implements IDao <Consultation>{
                 rs.getInt("id"),
                 rs.getDate("date"),
                 rs.getString("libelle_specialite"),
-                rs.getString("statut")
+                rs.getString("statut"),
+                rs.getInt("prestation_id")        
                 );
                 consultations.add(consultationDto);
             }

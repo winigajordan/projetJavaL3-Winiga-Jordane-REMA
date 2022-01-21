@@ -16,12 +16,14 @@ public class ConsultationDto {
     private Date date;
     private String service;
     private String etat;
+    private int prestationId;
 
-    public ConsultationDto(int id, Date date, String service, String etat) {
+    public ConsultationDto(int id, Date date, String service, String etat, int prestationId ) {
         this.id = id;
         this.date = date;
         this.service = service;
         this.etat = etat;
+        this.prestationId = prestationId;
     }
     
     
@@ -59,6 +61,15 @@ public class ConsultationDto {
     public void setEtat(String etat) {
         this.etat = etat;
     }
+
+    public int getPrestationId() {
+        return prestationId;
+    }
+
+    public void setPrestationId(int prestationId) {
+        this.prestationId = prestationId;
+    }
+    
     
     
 }
