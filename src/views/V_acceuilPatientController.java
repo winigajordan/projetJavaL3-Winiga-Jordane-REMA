@@ -67,19 +67,16 @@ public class V_acceuilPatientController implements Initializable {
     @FXML
     private void handleShowRdvView(MouseEvent event) throws IOException {
         loadView( "v_rdv");
-        //btnRdv.setStyle("-fx-background-color :  #5DCD93");
     }
 
     @FXML
     private void handleShowMyConsultations(MouseEvent event) throws IOException {
         loadView( "v_consultation_patient");
-        //btnConsultation.setStyle("-fx-background-color :  default");
     }
 
     @FXML
     private void handleShowMyPrestation(MouseEvent event) throws IOException {
         loadView( "v_prestation_patient");
-        //btnPrestation.setStyle("-fx-background-color :  #5DCD93");
     }
 
     public void loadView(String view) throws IOException{

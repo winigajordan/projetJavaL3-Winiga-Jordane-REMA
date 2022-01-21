@@ -75,7 +75,9 @@ public class V_accountCreationController implements Initializable {
         else
         {
             
-            int resultat = service.searchByNci(Integer.parseInt(nci));
+            try {
+            
+                int resultat = service.searchByNci(Integer.parseInt(nci));
             if (resultat != 0)
             
             {
@@ -91,19 +93,26 @@ public class V_accountCreationController implements Initializable {
                 txtError.setText(String.valueOf(x));
                 txtError.setVisible(true);
                 
-                
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Prise de rendez-vous");
-                alert.setContentText("Compte crée avec succès, retournez à la page de conneion pour vous connecter");
-                alert.show();
+                showAlert("Compte crée avec succès, retournez à la page de conneion pour vous connecter");
             }
             
+            } catch(Exception ex){
             
+                showAlert("Le NCI doit être un entier");
             
+            }
+
         }
         
         
     }
 
+    public void showAlert( String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Consultation");
+        alert.setHeaderText("");
+        alert.setContentText(message);
+        alert.show();
+    }
     
 }
