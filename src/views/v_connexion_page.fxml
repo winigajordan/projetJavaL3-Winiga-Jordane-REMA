@@ -32,7 +32,7 @@
                   <Font name="Bell MT" size="15.0" />
                </font>
             </Text>
-            <Text layoutX="74.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous êtes nouveau et vous voulez cprendre un RDV, veuillez creer un compte" textAlignment="CENTER" wrappingWidth="364.220703125">
+            <Text layoutX="74.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous êtes nouveau et vous voulez prendre un RDV, veuillez creer un compte" textAlignment="CENTER" wrappingWidth="364.220703125">
                <font>
                   <Font name="Bell MT" size="19.0" />
                </font>

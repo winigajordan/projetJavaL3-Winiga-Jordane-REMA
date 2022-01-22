@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" style="-fx-background-color: #D9DEF6;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.V_consultation_patientController">
+<AnchorPane id="AnchorPane" prefHeight="380.0" prefWidth="500.0" style="-fx-background-color: #D9DEF6;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.ConsultationPatientController">
    <children>
       <TableView fx:id="tbvlConsultation" layoutX="5.0" layoutY="100.0" onMouseClicked="#handleGetId" prefHeight="207.0" prefWidth="491.0">
         <columns>

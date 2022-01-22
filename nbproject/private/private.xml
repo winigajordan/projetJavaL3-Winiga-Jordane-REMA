@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/DetailsConsultationController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/V_consultation_patientController.java</file>
-            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/DossierMedicalController.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Rdv.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Constantes.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/views/ConsultationPatientController.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Prestation.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/OrdMed.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Admin.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Consultation.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Medicament.java</file>
+            <file>file:/C:/Users/user/Desktop/saveJavaProject/src/entities/Ordonnance.java</file>
         </group>
     </open-files>
 </project-private>

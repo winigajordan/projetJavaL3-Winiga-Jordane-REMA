@@ -86,7 +86,7 @@ public class ConnexionPageController implements Initializable {
                 
                 if (user.getRole().equals("ROLE_PATIENT"))
                 {
-                    laodPage("v_acceuilPatient");
+                    laodPage("v_acceuil_patient");
                 }
                  if (user.getRole().equals("ROLE_MEDECIN"))
                 {
